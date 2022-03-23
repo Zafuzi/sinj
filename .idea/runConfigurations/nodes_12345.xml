@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="nodes:12345" type="NodeJSConfigurationType" application-parameters="dev . 12345" path-to-js-file="$PROJECT_DIR$/../nodes/nodes.js" working-dir="$PROJECT_DIR$">
+    <method v="2" />
+  </configuration>
+</component>
