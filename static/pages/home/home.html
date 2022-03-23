@@ -5,12 +5,24 @@
 		<hr>
 		<p>Here is a list of places we call home: </p>
 		<br>
-		#if homes
+
+#ifdef homes
 			<ul>
-				#homes
-					<li>__name__</li>
-				/homes
+				<each home in homes>
+					<li>{{home.name}}</li>
+				</each>
 			</ul>
-		/if
+#else
+			<p> No Homes </p>
+#endif
+
+		{{#if homes}}
+			<ul>
+				{{#each home in homes}}
+					<li>__home.name__</li>
+				{{/each}}
+			</ul>
+		{{/if}}
+
 	</section>
 </main>
