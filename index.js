@@ -30,6 +30,14 @@ const routes = {
         before: function(okay, fail)
         {
             okay(data);
+        },
+        during: function(data)
+        {
+           rplc8(contentTemplate, "#posts", "/posts", data);
+        },
+        after: function(data)
+        {
+
         }
     }
 }
@@ -40,7 +48,6 @@ app.use(function(request, response, next)
 
     route.before(function(data)
     {
-        // rplc8(contentTemplate, "#posts", "/posts" data); 
     }, fail);
     //response.send();
     next();
