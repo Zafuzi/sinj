@@ -35,7 +35,6 @@ const router = function(request, response, next)
     let stylesheetString = "";
     let contentString = "";
     let scriptsString = "";
-    let versionString = version;
     let titleString = (route && route.title) || "Nodes - " + requestedRoute;
 
     if(route && route.content && route.stylesheets && route.scripts)
@@ -71,7 +70,7 @@ const router = function(request, response, next)
     layoutTemplate = layoutTemplate.replace(/{{content}}/gm, contentString);
     layoutTemplate = layoutTemplate.replace(/{{scripts}}/gm, scriptsString);
     layoutTemplate = layoutTemplate.replace(/{{title}}/gm, titleString);
-    layoutTemplate = layoutTemplate.replace(/{{version}}/gm, versionString);
+    layoutTemplate = layoutTemplate.replace(/{{version}}/gm, version);
     if(route && route.title)
     {
         layoutTemplate = layoutTemplate.replace(/{{active (.*)}}/gm, function(a, b)

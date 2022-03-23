@@ -44,6 +44,7 @@ app.use(function(request, response, next)
     layoutTemplate = layoutTemplate.replace(/{{content}}/gm, contentString);
     layoutTemplate = layoutTemplate.replace(/{{scripts}}/gm, scriptsString);
     layoutTemplate = layoutTemplate.replace(/{{title}}/gm, titleString);
+    layoutTemplate = layoutTemplate.replace(/{{version}}/gm, version);
 
     response.end(layoutTemplate);
 });
