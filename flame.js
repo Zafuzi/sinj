@@ -1,6 +1,8 @@
+delete require.cache[module.filename];	// always reload
 const fs    = require("fs");
 const path  = require("path");
 const HERE  = path.dirname(module.filename);
+const version = require("./version.js");
 
 const routes = {
     "": { // means default route i.e https://site.com
@@ -9,16 +11,12 @@ const routes = {
         stylesheets: ["pages/home/home.css"], 
         scripts: ["pages/home/home.js"],
         title: "Home",
-        before: function(okay, fail)
-        {
-        },
-        during: function(data)
-        {
-           //rplc8(contentTemplate, "#posts", "/posts", data);
-        },
-        after: function(data)
-        {
-        }
+    },
+    "about": { 
+        content: "pages/about/about.html",
+        stylesheets: ["pages/about/about.css"], 
+        scripts: ["pages/about/about.js"],
+        title: "About",
     }
 }
 
@@ -37,6 +35,7 @@ const router = function(request, response, next)
     let stylesheetString = "";
     let contentString = "";
     let scriptsString = "";
+    let versionString = version;
     let titleString = (route && route.title) || "Nodes - " + requestedRoute;
 
     if(route && route.content && route.stylesheets && route.scripts)
@@ -72,6 +71,15 @@ const router = function(request, response, next)
     layoutTemplate = layoutTemplate.replace(/{{content}}/gm, contentString);
     layoutTemplate = layoutTemplate.replace(/{{scripts}}/gm, scriptsString);
     layoutTemplate = layoutTemplate.replace(/{{title}}/gm, titleString);
+    layoutTemplate = layoutTemplate.replace(/{{version}}/gm, versionString);
+    if(route && route.title)
+    {
+        layoutTemplate = layoutTemplate.replace(/{{active (.*)}}/gm, function(a, b)
+        {
+            console.log(a, b, route.title);
+            return route.title.toLowerCase() === b.toLowerCase() ? "active" : "";
+        });
+    }
 
     //console.log(layoutTemplate)
 

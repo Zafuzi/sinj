@@ -8,15 +8,22 @@
 	</head>
 	<body>
 		<header>
-			<nav>
-				<a href="/">Home</a>
-				<a href="/test">Test</a>
+			<nav class="flex flow-row-wrap align-center justify-space-between">
+				<a class="{{active home}}" href="/">Home</a>
+				<div>
+					<a class="{{active about}}" href="/about">About</a>
+					<a class="{{active contact}}" href="/contact">Contact</a>
+					<a class="{{active login}}" href="/login">Login</a>
+				</div>
 			</nav>
 		</header>
 
 		{{content}}
 
-		<footer></footer>
+		<footer>
+			<hr>
+			<p> &copy; Company 2022 | version - <em>{{version}}</em></p>
+		</footer>
 		{{scripts}}
 	</body>
 </html>

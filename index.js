@@ -19,6 +19,7 @@ const sleepless         = require("sleepless");
 
 const HERE  = path.dirname(module.filename);
 const app   = connect();
+const version = require("./version.js");
 
 app.use(require("./flame.js").router);
 
