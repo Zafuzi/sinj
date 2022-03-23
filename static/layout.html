@@ -3,15 +3,19 @@
 	<head>
 		<title>{{title}}</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        {{stylesheets}}
+	{{stylesheets}}
 	</head>
 	<body>
-        <script src="nav.js"></script>
-        <header></header>
+		<header>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/test">Test</a>
+			</nav>
+		</header>
 
-        {{content}}
+		{{content}}
 
-        <footer></footer>
-        {{scripts}}
+		<footer></footer>
+		{{scripts}}
 	</body>
 </html>
