@@ -76,7 +76,7 @@ const router = function(request, response, next)
     {
         layoutTemplate = layoutTemplate.replace(/{{active (.*)}}/gm, function(a, b)
         {
-            console.log(a, b, route.title);
+            //console.log(a, b, route.title);
             return route.title.toLowerCase() === b.toLowerCase() ? "active" : "";
         });
     }
