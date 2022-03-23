@@ -27,7 +27,7 @@ app.use(require("./flame.js").router);
 
 app.use(require("serve-static")(HERE + "/static"));
 
-// TODO somehow move this into router.js? 
+// TODO somehow move this into router.js?
 app.use(function(request, response, next)
 {
     let notFoundTemplate = fs.readFileSync(HERE + "/static/notFound.html").toString();
