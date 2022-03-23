@@ -1,5 +1,22 @@
 :root {
-    --dark: #2c2c2c;
+	--positive: #0074C7;
+	--positive-darker: #004F87;
+	--positive-darker-x2: #002A47;
+	--dark: #2c2c2c;
+	--deep-dark: #001524;
+	--light: #FFF;
+	--subtle-light: #F8F8F8;
+
+	--calm: #0099ff;
+
+	--balanced: #008055;
+	--energized: #ffa900;
+	--assertive: #DD0033;
+	--juicy: #850053;
+
+	--neutral: #e8e8e8;
+	--neutral-middle: #999999;
+	--neutral-dark: #686870;
 }
 
 * {
@@ -17,7 +34,7 @@ body, html {
 	padding: 0;
 	margin: 0;
 
-	font-family: Helvetica, Arial, sans-serif;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	font-size: 12pt;
 }
 
@@ -77,10 +94,15 @@ section {
 	margin: 1em auto;
 }
 
-section h3 {
+section h1 {
+	font-family: 'Times New Roman', Times, serif;
     font-weight: bold;
     width: 100%;
-    margin: 1em 0 0.3em 0;
+	margin: 1em 0 0.3em 0;
+}
+
+section hr {
+	margin: 24px 0;
 }
 
 input[type=text],
@@ -97,6 +119,15 @@ footer {
 	min-height: 50px;
 }
 
+.min-width-300 { min-width: 300px; }
+.min-width-400 { min-width: 400px; }
+.min-width-500 { min-width: 500px; }
+.min-width-600 { min-width: 600px; }
+.min-width-700 { min-width: 700px; }
+.min-width-800 { min-width: 800px; }
+.min-width-900 { min-width: 900px; }
+.min-width-1200 { min-width: 1200px; }
+
 .max-width-300 { max-width: 300px; }
 .max-width-400 { max-width: 400px; }
 .max-width-500 { max-width: 500px; }
@@ -105,6 +136,24 @@ footer {
 .max-width-800 { max-width: 800px; }
 .max-width-900 { max-width: 900px; }
 .max-width-1200 { max-width: 1200px; }
+
+.min-height-300 { min-height: 300px; }
+.min-height-400 { min-height: 400px; }
+.min-height-500 { min-height: 500px; }
+.min-height-600 { min-height: 600px; }
+.min-height-700 { min-height: 700px; }
+.min-height-800 { min-height: 800px; }
+.min-height-900 { min-height: 900px; }
+.min-height-1200 { min-height: 1200px; }
+
+.max-height-300 { max-height: 300px; }
+.max-height-400 { max-height: 400px; }
+.max-height-500 { max-height: 500px; }
+.max-height-600 { max-height: 600px; }
+.max-height-700 { max-height: 700px; }
+.max-height-800 { max-height: 800px; }
+.max-height-900 { max-height: 900px; }
+.max-height-1200 { max-height: 1200px; }
 
 .text-left { text-align: left; }
 .text-center { text-align: center; }
@@ -123,9 +172,9 @@ footer {
 .margin { margin: 8px; }
 
 .flex { display: flex; }
-.flex.flow-row { flex-flow: row; }
-.flex.flow-row-wrap { flex-flow: row wrap; }
-.flex.flow-column{ flex-flow: column; }
+	.flex.flow-row { flex-flow: row; }
+	.flex.flow-row-wrap { flex-flow: row wrap; }
+	.flex.flow-column{ flex-flow: column; }
 
 .align-center {
 	align-items: center;
@@ -150,8 +199,43 @@ footer {
 	justify-content: flex-end;
 }
 
-.okay { color: green; }
-.warn { color: orange; }
-.fail { color: red; }
+.grid { display: grid;}
+	.grid.col-1 { grid-template-columns: 1fr; }
+	.grid.col-2 { grid-template-columns: 1fr 1fr; }
+	.grid.col-3 { grid-template-columns: 1fr 1fr 1fr; }
+	.grid.col-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+	.grid.col-5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr; }
+	.grid.col-6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; }
+	.grid.col-1-auto { grid-template-columns: 1fr auto; }
+	.grid.col-auto-1 { grid-template-columns: auto 1fr; }
+	.grid.col-min-auto { grid-template-columns: minmax(100px, 200px) auto; }
+
+	.grid.row-1 { grid-template-rows: 1fr; }
+	.grid.row-2 { grid-template-rows: 1fr 1fr; }
+	.grid.row-3 { grid-template-rows: 1fr 1fr 1fr; }
+	.grid.row-4 { grid-template-rows: 1fr 1fr 1fr 1fr; }
+	.grid.row-5 { grid-template-rows: 1fr 1fr 1fr 1fr 1fr; }
+	.grid.row-6 { grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr; }
+
+	.grid.gap-1 { gap: 4px; }
+	.grid.gap-2 { gap: 8px; }
+	.grid.gap-3 { gap: 12px; }
+	.grid.gap-4 { gap: 16px; }
+	.grid.gap-5 { gap: 20px; }
+	.grid.gap-6 { gap: 24px; }
+
+.light { color: var(--light); }
+.dark { color: var(--dark); }
+.balanced { color: var(--balanced); }
+.deep-dark { color: var(--deep-dark); }
+.energized { color: var(--energized); }
+.assertive { color: var(--assertive); }
+
+.bg-light { background-color: var(--light); }
+.bg-dark { background-color: var(--dark); }
+.bg-balanced { background-color: var(--balanced); }
+.bg-deep-dark { background-color: var(--deep-dark); }
+.bg-energized { background-color: var(--energized); }
+.bg-assertive { background-color: var(--assertive); }
 
 .hid { display: none !important; }
