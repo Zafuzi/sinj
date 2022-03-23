@@ -20,13 +20,33 @@ const sleepless         = require("sleepless");
 const HERE  = path.dirname(module.filename);
 const app   = connect();
 
-console.log(HERE)
+let layoutTemplate = fs.readFileSync("/static/layout.html");
 
-app.use(rpc("/api/", HERE + "/api",
-{ 
-    cors: true,
-    dev: true 
-}));
+const routes = {
+    home: {
+        content: "/static/pages/home/home.html",
+        stylesheets: "/static/pages/home/home.css",
+        scripts: "/static/pages/home/home.js",
+        before: function(okay, fail)
+        {
+            okay(data);
+        }
+    }
+}
+
+app.use(function(request, response, next)
+{
+    let route = request.params;
+
+    route.before(function(data)
+    {
+        // rplc8(contentTemplate, "#posts", "/posts" data); 
+    }, fail);
+    //response.send();
+    next();
+})
+
+console.log(HERE)
 
 app.use(require("serve-static")(HERE + "/static"));
 
