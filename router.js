@@ -1,8 +1,10 @@
 delete require.cache[module.filename];	// always reload
+
 const fs    = require("fs");
 const path  = require("path");
 const HERE  = path.dirname(module.filename);
-const version = require("./version.js");
+
+const version = require("./version");
 
 const routes = {
     "": { // means default route i.e https://site.com
@@ -20,7 +22,7 @@ const routes = {
     }
 }
 
-const router = function(request, response, next)
+module.exports = function(request, response, next)
 {
     let {_parsedUrl} = request;
     let requestedRoute = _parsedUrl.pathname.split("/").pop();
@@ -43,13 +45,18 @@ const router = function(request, response, next)
             contentString = fs.readFileSync(HERE + "/static/" + route.content).toString();
             if(contentString)
             {
-                // rplc8
-                //console.log(contentTemplate);
+                // JOE something like this?
+                let routeServerFilePath = path.resolve(`${HERE}/server/${route.title.toLowerCase()}.js`);
+                if(fs.existsSync(routeServerFilePath))
+                {
+                    require(routeServerFilePath);
+                }
             }
         }
         catch(error)
         {
             console.error("FAILED to read file: %s/static/%s", HERE, route.content);
+            console.error(error);
         }
 
         for(let stylesheet of route.stylesheets)
@@ -79,17 +86,7 @@ const router = function(request, response, next)
         });
     }
 
-    //console.log(layoutTemplate)
-	// XXX
-	// Zach, it looked like this data was supposed get loaded from home.js somehow,
-	// but I wasn't sure how, so I just slammed some in here to test.
-	// I'll let you figure that out.
-	homes = [
-		{name: "Palace"},
-		{name: "Hovel"},
-	];
-	layoutTemplate = require("./shelp.js")(layoutTemplate);
-
+    layoutTemplate = require("./prepper")(layoutTemplate);
 
     if(route)
     {
@@ -100,5 +97,3 @@ const router = function(request, response, next)
         next();
     }
 }
-
-module.exports = {routes, router};
