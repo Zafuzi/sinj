@@ -1,3 +1,4 @@
+
 <main>
 	<section>
 		<h1 class="{{active Home}}">What is a home?</h1>
@@ -6,9 +7,9 @@
 		<p>Here is a list of places we call home: </p>
 		<br>
 
-		if typeof homes != "undefined" {
+		if homes && homes.length != 0 {
 			<ul>
-				replicate global.homes {
+				replicate homes {
 					<li>__name__</li>
 				}
 			</ul>

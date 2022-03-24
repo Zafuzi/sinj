@@ -80,7 +80,7 @@ const router = function(request, response, next)
     }
 
     //console.log(layoutTemplate)
-	layoutTemplate = require("./parse.js")(layoutTemplate);
+	layoutTemplate = require("./shelp.js")(layoutTemplate);
 
 
     if(route)

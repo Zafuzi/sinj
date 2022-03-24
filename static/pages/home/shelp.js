@@ -13,21 +13,20 @@ module.exports = function( input ) {
 	function get_line() {
 		let line = lines.shift();
 		ln += 1;
-		//log("-------- "+depth+" "+ln+": "+line);
 		return line;
 	}
 	function unget_line( line ) {
 		lines.unshift( line );
 	}
 
-	function expr( s ) {
+	function evaluate( s ) {
 		return Function("\"use strict\";return ("+s+")")();
 	}
 
 	function dumpargs( arr ) {
 		arr.forEach( ( s, i ) => {
 			s = s ? s.trim() : null;
-			log( "  ["+i+"]="+o2j(s) );
+			//log( "  ["+i+"]="+o2j(s) );
 		});
 	}
 
@@ -41,6 +40,7 @@ module.exports = function( input ) {
 		let exp = null;
 		let m = line.trim().match( re );
 		if( m ) {
+			dumpargs(m);
 			cmd = m[ 1 ];
 			exp = m[ 2 ].trim();
 		}
@@ -58,7 +58,7 @@ module.exports = function( input ) {
 
 	function grok( line ) {
 
-		log( "----- "+depth+": "+line );
+		//log( "----- "+depth+": "+line );
 
 		if( line.trim() == "}" ) {
 			// end of block
@@ -72,33 +72,29 @@ module.exports = function( input ) {
 		}
 
 		if( cmd == "if" ) {
-			//let exp = m[2].trim();	// the expression to test
-			log("!!! IF ( "+exp+" )" );
+			//log("!!! IF ( "+exp+" )" );
+			//log("!!! IF ( "+"..."+" )" );
 
 			let t_blk = read_blk();	// read the "true" block
 
-			let la = get_line(); // look ahead 1 line
-			let f_blk = null;
+			// look ahead one line and see if it's an "else"
+			let la = get_line();
+			let { cmd, exp } = extract_cmd( line );
+			let f_blk = ( cmd == "else" ) ? read_blk() : "";
 
-			if( expr(exp) ) {
-				// expression is true ...
-				log( ">>> TRUE " );
-			} else {
-				// expression was false
-				log( ">>> FALSE " );
-				let line = get_line(); // look ahead 1 line
-				if( cmd == "else" ) {
-					// it's an else
-					blk = read_blk();	// read the next block
-				}
+			if( evaluate(exp) ) {
+				//log( ">>> TRUE " );
+				return t_blk;
 			}
-			return blk;
+
+			//log( ">>> FALSE " );
+			return f_blk;
 		}
 
 		if( cmd == "replicate" ) {
-			log("!!! REPLICATE ( "+exp+" )" );
+			//log("!!! REPLICATE ( "+exp+" )" );
 			let r_blk = read_blk();	// read a block
-			let data = expr( exp );
+			let data = evaluate( exp );
 			if( ! data || ! (data instanceof Array)) {
 				throw new Error( "Invalid replicate data: "+o2j(data) );
 			}
@@ -120,13 +116,14 @@ module.exports = function( input ) {
 			let line = grok( get_line() );
 			if( line === null )
 				break; // block ended
-			out += line;
+			out += line + "\n";
 		}
-		log( "BLOCK >>>> "+out+" <<<<" );
+		//log( "BLOCK >>>> "+out+" <<<<" );
 		depth--;
 		return out;
 	}
 
+	//return "=====================================\n"+read_blk();
 	return read_blk();
 };
 
