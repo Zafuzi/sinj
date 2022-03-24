@@ -1,1 +1,11 @@
-# nodes-micro-website
+--------------------
+
+
+                                    nodes-micro-website
+
+
+--------------------
+
+- clone this repo
+- edit some files
+- be happy
