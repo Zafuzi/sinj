@@ -19,21 +19,5 @@ const fail = function(error, data, callback)
 
 const massage = function(templateName, data)
 {
-	let template = document.querySelector(`template[name="${templateName}"]`);
 
-	if(!template)
-	{
-		return;
-	}
-
-	let h_template = Handlebars.compile(template.innerHTML);
-	let html = h_template(data || {});
-
-	let domNode = document.querySelector(templateName);
-	if(!domNode)
-	{
-		return;
-	}
-
-	domNode.outerHTML = html;
 }

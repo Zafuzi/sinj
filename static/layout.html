@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>Nodes - __route.title__</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/styles/global.css">
+	</head>
+	<body>
+		<script src="/lib/sleepless.js"></script>
+		<script src="/lib/lib.js"></script>
+		<script src="/layout.js"></script>
+
+		<header>
+			<nav>
+				<a data-route="/" href="/">Home</a>
+				<div>
+					<a data-route="/about" href="/about">About</a>
+					<a data-route="/contact" href="/contact">Contact</a>
+					<a data-route="/quote" href="/quote?id=10&sort=asc">Quote</a>
+					<a data-route="/login" href="/login">Login</a>
+				</div>
+			</nav>
+		</header>
+
+		__content__
+
+		<footer class="info">
+			<hr>
+			<p> &copy; Company 2022 | version - <em>__version__</em></p>
+		</footer>
+	</body>
+</html>

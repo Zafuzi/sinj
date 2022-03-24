@@ -6,14 +6,12 @@ const fs = require( "fs" );
 require("sleepless");
 const L = log5.mkLog( "BLOGS " )( 3 );
 
-
 const mysql_creds  = {
 	"host"      : "d.sleepless.com",
-	"user"      : "blog",
-	"database"  : "blogs",
-	"password"  : "19yPOGbUacrHNwLk",
+	"user"      : "",
+	"database"  : "",
+	"password"  : "",
 };
-
 
 module.exports = function(input, _okay, _fail)
 {
