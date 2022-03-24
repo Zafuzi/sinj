@@ -1,7 +1,7 @@
 
 // SHELP - shitty html embedded logic parser
 
-require("sleepless");
+sleepless = require("sleepless");
 
 module.exports = function( input ) {
 
@@ -48,18 +48,27 @@ module.exports = function( input ) {
 
 	}
 
+	let inject = function( s, data ) {
+		for( let key in data ) {
+			let re = new RegExp( "__" + key + "__", "g" );
+			s = s.replace( re, ""+(data[ key ]) );
+		}
+		return s;
+	}
+
 	function grok( line ) {
 
-		log( "----- "+line );
-		let { cmd, exp } = extract_cmd( line );
-		if( ! cmd ) {
-			// no logic - just return the line
-			return line;
-		}
+		log( "----- "+depth+": "+line );
 
 		if( line.trim() == "}" ) {
 			// end of block
 			return null;
+		}
+
+		let { cmd, exp } = extract_cmd( line );
+		if( ! cmd ) {
+			// no logic - just return the line
+			return line;
 		}
 
 		if( cmd == "if" ) {
@@ -89,14 +98,14 @@ module.exports = function( input ) {
 		if( cmd == "replicate" ) {
 			log("!!! REPLICATE ( "+exp+" )" );
 			let r_blk = read_blk();	// read a block
-			let data = expr(exp);
+			let data = expr( exp );
 			if( ! data || ! (data instanceof Array)) {
-				throw new Error( "Invalid replicate data "+exp );
+				throw new Error( "Invalid replicate data: "+o2j(data) );
 			}
 			let out = ""
-			log(o2j(data));
 			for( let d of data ) {
-				out += r_blk+"\n";
+				let b = inject( r_blk, d );
+				out += b+"\n";
 			}
 			return out;
 		}
@@ -106,19 +115,14 @@ module.exports = function( input ) {
 
 	function read_blk() {
 		depth++;
-		log( "__ BLOCK >>>" );
 		let out = ""
 		while( lines.length > 0 ) {
-			let line = get_line();
-			let out = grok( line );
-			if( out === null ) {
-				// block ended
-				break;
-			}
+			let line = grok( get_line() );
+			if( line === null )
+				break; // block ended
 			out += line;
 		}
-		log( out );
-		log( "__ _____ <<<" );
+		log( "BLOCK >>>> "+out+" <<<<" );
 		depth--;
 		return out;
 	}
@@ -126,12 +130,5 @@ module.exports = function( input ) {
 	return read_blk();
 };
 
-if(require && require.main === module) {
-	// module is being executed directly
-	let fs = require("fs");
-	let txt = fs.readFileSync(process.argv[2], "utf8");
-	let out = module.exports( txt );
-	log(out);
-}
 
 

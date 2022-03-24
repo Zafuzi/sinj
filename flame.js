@@ -80,12 +80,7 @@ const router = function(request, response, next)
     }
 
     //console.log(layoutTemplate)
-
-	homes = [
-		{ name: "Palace" },
-		{ name: "Hovel" },
-	];
-	layoutTemplate = require("./parse.js")();
+	layoutTemplate = require("./parse.js")(layoutTemplate);
 
 
     if(route)
