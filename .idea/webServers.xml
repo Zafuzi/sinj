@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="73a06fe1-7a95-49b5-ac5a-07fc652136e4" name="nodes" url="http://nodes.sleepless.com">
+        <fileTransfer accessType="SFTP" host="nodes.sleepless.com" port="22" sshConfigId="cb56e4ec-8509-424a-9f6e-7e1eb6a0228a" sshConfig="root@nodes.sleepless.com:22 agent" authAgent="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

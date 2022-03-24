@@ -1,0 +1,17 @@
+
+<main>
+	<section>
+		<h1 class={{active "home"}}>What is a home?</h1>
+		<p>A home is where your lunoids rest. A home is a place of peace.</p>
+		<hr>
+		<p>Here is a list of places we call home: </p>
+		<br>
+
+		{{#if homes}}
+			{{#each homes}}
+				<p>{{name}}</p>
+			{{/each}}
+		{{/if}}
+	</section>
+</main>
+

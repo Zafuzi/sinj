@@ -1,24 +1,23 @@
 <!doctype html>
 <html lang="en">
 	<head>
-		<title>{{title}}</title>
+		<title>Nodes - {{title}}</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="styles/global.css">
-		{{stylesheets}}
 	</head>
 	<body>
 		<header>
 			<nav class="flex flow-row-wrap align-center justify-space-between">
-				<a class="{{active home}}" href="/">Home</a>
+				<a class='{{active "home"}}' href="/">Home</a>
 				<div>
-					<a class="{{active about}}" href="/about">About</a>
-					<a class="{{active contact}}" href="/contact">Contact</a>
-					<a class="{{active login}}" href="/login">Login</a>
+					<a class='{{active "about"}}' href="/about">About</a>
+					<a class='{{active "contact"}}' href="/contact">Contact</a>
+					<a class='{{active "login"}}' href="/login">Login</a>
 				</div>
 			</nav>
 		</header>
 
-		{{content}}
+		{{{content}}}
 
 		<footer class="info">
 			<hr>
@@ -26,6 +25,7 @@
 		</footer>
 
 		<script src="lib/sleepless.js"></script>
-		{{scripts}}
+		<script src="lib/handlebars.min.js"></script>
+		<script src="lib/lib.js"></script>
 	</body>
 </html>
