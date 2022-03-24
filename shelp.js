@@ -1,5 +1,8 @@
 
-// SHELP - shitty html embedded logic parser
+// Joe's SHELP - shitty html embedded logic parser
+// rename this shit hudson!
+
+delete require.cache[module.filename];	// always reload
 
 sleepless = require("sleepless");
 
@@ -17,16 +20,11 @@ module.exports = function( input ) {
 	}
 	function unget_line( line ) {
 		lines.unshift( line );
+		ln -= 1;
 	}
 
 	function evaluate( s ) {
 		return Function("\"use strict\";return ("+s+")")();
-	}
-
-	function dumpargs( arr ) {
-		arr.forEach( ( s, i ) => {
-			s = s ? s.trim() : null;
-		});
 	}
 
 	function get_cmd( s ) {
@@ -39,7 +37,6 @@ module.exports = function( input ) {
 		let exp = null;
 		let m = line.trim().match( re );
 		if( m ) {
-			dumpargs(m);
 			cmd = m[ 1 ];
 			exp = m[ 2 ].trim();
 		}
@@ -69,18 +66,23 @@ module.exports = function( input ) {
 		}
 
 		if( cmd == "if" ) {
-			let t_blk = read_blk();	// read the "true" block
+			let true_blk = read_blk();	// read the "true" block
 
 			// look ahead one line and see if it's an "else"
 			let la = get_line();
-			let { cmd, exp } = extract_cmd( line );
-			let f_blk = ( cmd == "else" ) ? read_blk() : "";
-
-			if( evaluate(exp) ) {
-				return t_blk;
+			let x = extract_cmd( la );
+			let false_blk = "";
+			if( x.cmd == "else" ) {
+				false_blk = read_blk();
+			} else {
+				unget_line( la );
 			}
 
-			return f_blk;
+			if( evaluate(exp) ) {
+				return true_blk;
+			}
+
+			return false_blk;
 		}
 
 		if( cmd == "replicate" ) {

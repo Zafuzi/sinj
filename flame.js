@@ -80,10 +80,14 @@ const router = function(request, response, next)
     }
 
     //console.log(layoutTemplate)
-homes = [
-	{name: "Palace"},
-	{name: "Hovel"},
-];
+	// XXX
+	// Zach, it looked like this data was supposed get loaded from home.js somehow,
+	// but I wasn't sure how, so I just slammed some in here to test.
+	// I'll let you figure that out.
+	homes = [
+		{name: "Palace"},
+		{name: "Hovel"},
+	];
 	layoutTemplate = require("./shelp.js")(layoutTemplate);
 
 

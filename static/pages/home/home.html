@@ -7,6 +7,23 @@
 		<p>Here is a list of places we call home: </p>
 		<br>
 
+		if true {
+			<p>It's TRUE for me.
+		}
+
+		if false {
+			<p>It's FALSE.
+		}
+		else {
+			<p>Monkeys butts!
+		}
+
+		<div>
+			replicate [{k:'foo'},{k:'bar'}] {
+				<button >__k__</button>
+			}
+		</div>
+
 		if homes && homes.length != 0 {
 			<ul>
 				replicate homes {
