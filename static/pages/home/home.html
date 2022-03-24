@@ -6,23 +6,17 @@
 		<p>Here is a list of places we call home: </p>
 		<br>
 
-#ifdef homes
+		if typeof homes != "undefined" {
 			<ul>
-				<each home in homes>
-					<li>{{home.name}}</li>
-				</each>
+				replicate homes {
+					<li>__name__</li>
+				}
 			</ul>
-#else
-			<p> No Homes </p>
-#endif
-
-		{{#if homes}}
-			<ul>
-				{{#each home in homes}}
-					<li>__home.name__</li>
-				{{/each}}
-			</ul>
-		{{/if}}
+		}
+		else {
+			<p>No homes</p>
+		}
 
 	</section>
 </main>
+

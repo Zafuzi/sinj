@@ -23,8 +23,7 @@ const routes = {
 const router = function(request, response, next)
 {
     let {_parsedUrl} = request;
-    let requestedRoute = _parsedUrl.pathname.split("/");
-        requestedRoute = requestedRoute[requestedRoute.length - 1];
+    let requestedRoute = _parsedUrl.pathname.split("/").pop();
 
     //console.log(_parsedUrl, requestedRoute)
 
@@ -81,6 +80,13 @@ const router = function(request, response, next)
     }
 
     //console.log(layoutTemplate)
+
+	homes = [
+		{ name: "Palace" },
+		{ name: "Hovel" },
+	];
+	layoutTemplate = require("./parse.js")();
+
 
     if(route)
     {
