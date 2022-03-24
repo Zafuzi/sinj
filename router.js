@@ -40,25 +40,6 @@ module.exports = function(request, response, next)
 
     if(route && route.content && route.stylesheets && route.scripts)
     {
-        try
-        {
-            contentString = fs.readFileSync(HERE + "/static/" + route.content).toString();
-            if(contentString)
-            {
-                // JOE something like this?
-                let routeServerFilePath = path.resolve(`${HERE}/server/${route.title.toLowerCase()}.js`);
-                if(fs.existsSync(routeServerFilePath))
-                {
-                    require(routeServerFilePath);
-                }
-            }
-        }
-        catch(error)
-        {
-            console.error("FAILED to read file: %s/static/%s", HERE, route.content);
-            console.error(error);
-        }
-
         for(let stylesheet of route.stylesheets)
         {
             stylesheetString += `<link rel="stylesheet" href="${stylesheet}">`;
@@ -73,24 +54,56 @@ module.exports = function(request, response, next)
     let layoutTemplate = fs.readFileSync(HERE + "/static/layout.html").toString();
 
     layoutTemplate = layoutTemplate.replace(/{{stylesheets}}/gm, stylesheetString);
-    layoutTemplate = layoutTemplate.replace(/{{content}}/gm, contentString);
     layoutTemplate = layoutTemplate.replace(/{{scripts}}/gm, scriptsString);
     layoutTemplate = layoutTemplate.replace(/{{title}}/gm, titleString);
     layoutTemplate = layoutTemplate.replace(/{{version}}/gm, version);
-    if(route && route.title)
-    {
-        layoutTemplate = layoutTemplate.replace(/{{active (.*)}}/gm, function(a, b)
-        {
-            //console.log(a, b, route.title);
-            return route.title.toLowerCase() === b.toLowerCase() ? "active" : "";
-        });
-    }
-
-    layoutTemplate = require("./prepper")(layoutTemplate);
-
     if(route)
     {
-        response.end(layoutTemplate);
+        let doAsyn = false;
+
+        layoutTemplate = layoutTemplate.replace(/{{active (.*)}}/gm, function(a, b)
+        {
+            return route.title.toLowerCase() === b.toLowerCase() ? "active" : "";
+        });
+
+        try
+        {
+            contentString = fs.readFileSync(HERE + "/static/" + route.content).toString();
+            layoutTemplate = layoutTemplate.replace(/{{content}}/gm, contentString);
+            if(contentString)
+            {
+                // JOE something like this?
+                let routeServerFilePath = path.resolve(`${HERE}/server/${route.title.toLowerCase()}.js`);
+                if(fs.existsSync(routeServerFilePath))
+                {
+                    let mod = require(routeServerFilePath)
+                    if(mod.load)
+                    {
+                        doAsync = true;
+                        mod.load(function(context)
+                        {
+                            layoutTemplate = require("./prepper")(layoutTemplate, context);
+                            response.end(layoutTemplate);
+                        });
+                    }
+                    else
+                    {
+                        layoutTemplate = require("./prepper")(layoutTemplate, mod);
+                        response.end(layoutTemplate);
+                    }
+                }
+            }
+        }
+        catch(error)
+        {
+            console.error("FAILED to read file: %s/static/%s", HERE, route.content);
+            console.error(error);
+        }
+
+        if(!doAsync)
+        {
+            response.end(layoutTemplate);
+        }
     }
     else
     {

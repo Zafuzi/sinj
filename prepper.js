@@ -4,9 +4,10 @@
 
 delete require.cache[module.filename];	// always reload
 
-sleepless = require("sleepless");
+const sleepless = require("sleepless");
+const vm = require("vm");
 
-module.exports = function( input ) {
+module.exports = function( input, module ) {
 
 	let ln = 0;
 	let depth = 0;
@@ -24,7 +25,8 @@ module.exports = function( input ) {
 	}
 
 	function evaluate( s ) {
-		return Function("\"use strict\";return ("+s+")")();
+		let context = vm.createContext(module);
+		return vm.runInContext(s, context);
 	}
 
 	function get_cmd( s ) {
@@ -97,6 +99,12 @@ module.exports = function( input ) {
 				out += b+"\n";
 			}
 			return out;
+		}
+
+		if( cmd == "execute" )
+		{
+			evaluate( exp );
+			return "";
 		}
 
 		throw new Error( "bogus command line: "+line.trim() );
