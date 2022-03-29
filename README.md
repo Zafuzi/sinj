@@ -1,12 +1,41 @@
 # nodes-micro-website
 
+This is a simple template to make development of semi-static websites easier. Hosting this site requires the use of a proprietary tool called `nodes`. But anyone can write a simple Express server that simply reroutes to this application.
+
+## how to edit
+- clone this repo
+- edit `/static` files for public facing content
+- edit `/api/index.js` to add endpoints
+- edit `index.js` to change server properties
 
 ## how to run
-- clone this repo
 - `npm i` 
-- edit /static files for public facing content
-- edit /api/index.js to add endpoints
-- edit index.js to change server properties
-- run using `npm start`
+- run using `npm start <PORT>`
+- navigate to `http://localhost:<PORT>`
 - don't worry
 - be happy
+
+## api
+
+The api works by routing to `/api/index.js`. All parameters and body data are sent there and that file decides what to do with that information.
+
+The function that the module exports contains the logic to handle api calls. For example:
+
+```
+let {action} = input;
+```
+
+This pulls the `action` out of the passed in body data.
+
+We can handle the action here:
+```
+if(action == "getPosts")
+{
+	_okay(posts);
+	return; // early return is important;
+}
+```
+
+and if the action isn't found we simply call `_fail();` which is just a callback to our client.
+
+Of course feel free to scrap all of that and handle it how you want. This is simply a middleware to the `connect` module created `app`
