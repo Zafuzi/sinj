@@ -8,6 +8,9 @@
     "sleepless": "^4.7.2"
   },
   "scripts": {
-	"start": "nodes 12345"
+    "start": "./webserver run $1" 
+  },
+  "devDependencies": {
+    "webserver": "^5.0.1"
   }
 }
