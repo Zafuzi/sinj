@@ -165,6 +165,7 @@ footer {
 .padding-bottom { padding-bottom: 8px; }
 .padding { padding: 8px; }
 
+.margin-auto { margin: auto; }
 .margin-top { margin-top: 8px; }
 .margin-right { margin-right: 8px; }
 .margin-left { margin-left: 8px; }
@@ -224,19 +225,48 @@ footer {
 	.grid.gap-5 { gap: 20px; }
 	.grid.gap-6 { gap: 24px; }
 
+/* text colors */
 .light { color: var(--light); }
 .dark { color: var(--dark); }
 .balanced { color: var(--balanced); }
 .deep-dark { color: var(--deep-dark); }
 .energized { color: var(--energized); }
 .assertive { color: var(--assertive); }
+.positive { color: var(--positive); }
 
+/* hover states for text colors */
+.light-hover:hover { color: var(--light); }
+.positive-hover:hover { color: var(--positive); }
+.positive-darker-hover:hover { color: var(--positive-darker); }
+
+/* background colors */
 .bg-light { background-color: var(--light); }
 .bg-dark { background-color: var(--dark); }
 .bg-balanced { background-color: var(--balanced); }
 .bg-deep-dark { background-color: var(--deep-dark); }
 .bg-energized { background-color: var(--energized); }
 .bg-assertive { background-color: var(--assertive); }
+.bg-positive { background-color: var(--positive); }
+.bg-positive-darker { background-color: var(--positive-darker); }
+
+/* hover states for background colors */
+.bg-light-hover:hover { background-color: var(--light); }
+.bg-positive-hover:hover { background-color: var(--positive); }
+.bg-positive-darker-hover:hover { background-color: var(--positive-darker); }
+
+.box { border: 2px solid var(--dark); }
+
+.button {
+	font-size: 14pt;
+	font-weight: bold;
+	border: 2px solid rgba(0,0,0,0.2);
+	border-radius: 2px;
+	padding: 4px 8px;
+}
+
+.button:hover {
+	cursor: pointer;
+}
 
 @media screen and (max-width: 400px)
 {

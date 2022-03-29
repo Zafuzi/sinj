@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="nodes:12345" type="NodeJSConfigurationType" application-parameters="dev . 12345" path-to-js-file="$PROJECT_DIR$/../nodes/nodes.js" working-dir="$PROJECT_DIR$">
+  <configuration default="false" name="nodes:12345" type="NodeJSConfigurationType" application-parameters="run 12345" path-to-node="$PROJECT_DIR$/../../node-v16.14.2-linux-x64/bin/node" path-to-js-file="webserver" working-dir="$PROJECT_DIR$">
     <method v="2" />
   </configuration>
 </component>
