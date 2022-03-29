@@ -73,7 +73,7 @@ figure {
 	max-height: 80vh;
 	margin: 0.3em auto;
 	border: 1px solid #ccc;
-	border-radius: 3px;
+	border-radius: 12px;
 }
 figure img {
     object-fit: contain;
@@ -88,17 +88,16 @@ figure figcaption {
 }
 
 section {
-	border: 1px solid rgba(11, 11, 11, .25);
-	border-radius: 3px;
 	padding: 1em;
 	margin: 1em auto;
 }
 
-section h1 {
+section > h1 {
 	font-family: 'Times New Roman', Times, serif;
     font-weight: bold;
+	font-size: 32pt;
     width: 100%;
-	margin: 1em 0 0.3em 0;
+	margin: 1em 0;
 }
 
 section hr {
@@ -111,8 +110,9 @@ input[type=checkbox],
 input[type=password],
 input[type=username],
 input[type=email] {
-    padding: 5px;
-    border: 2px solid #aaa;
+    padding: 1em;
+    border: 2px solid var(--dark);
+	border-radius: 24px;
 }
 
 footer {
@@ -256,12 +256,13 @@ footer {
 .bg-positive-darker-hover:hover { background-color: var(--positive-darker); }
 
 .box { border: 2px solid var(--dark); }
+.rounded { border-radisu: 12px; }
 
 .button {
 	font-size: 14pt;
 	font-weight: bold;
 	border: 2px solid var(--dark);
-	border-radius: 2px;
+	border-radius: 24px;
 	padding: 0.3em 1em;
 	transition: box-shadow 0.2s ease-in-out;
 

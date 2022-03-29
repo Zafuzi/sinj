@@ -1,15 +1,16 @@
 <main>
-	<form class="grid col-1 gap-4 box padding">
+	<section>
 		<h1>Register</h1>
-		<input type="text" placeholder="Username" name="username" required min="3" max="100">
-		<input type="email" placeholder="Email" name="email" required min="3" max="100">
-		<input type="password" placeholder="Password" name="password" required min="8" max="100">
-		<input type="password" placeholder="Repeat Password" name="repeatPassword" required min="8" max="100">
-		<div class="flex flow-row justify-flex-end align-center">
-			<a href="/login" class="positive positive-darker-hover" type="submit">Login</a>
-			<button class="button margin-left" type="submit">Register</button>
-		</div>
-	</form>
-
+		<form class="grid col-1 gap-4 padding">
+			<input type="text" placeholder="Username" name="username" required min="3" max="100">
+			<input type="email" placeholder="Email" name="email" required min="3" max="100">
+			<input type="password" placeholder="Password" name="password" required min="8" max="100">
+			<input type="password" placeholder="Repeat Password" name="repeatPassword" required min="8" max="100">
+			<div class="flex flow-row justify-flex-end align-center">
+				<a href="/login" class="positive positive-darker-hover" type="submit">Login</a>
+				<button class="button margin-left" type="submit">Register</button>
+			</div>
+		</form>
+	</section>
 	<script src="/register/register.js"></script>
 </main>
