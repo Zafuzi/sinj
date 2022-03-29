@@ -1,6 +1,6 @@
 # nodes-micro-website
 
-This is a simple template to make development of semi-static websites easier. Hosting this site requires the use of a proprietary tool called `nodes`. But anyone can write a simple Express server that simply reroutes to this application.
+This is a simple template to make development of semi-static websites easier. Hosting this site requires the use of a proprietary tool called `nodes`. But anyone can write a simple Express server that simply reroutes to this application. For this template I have used `webserver` to host the site for development ONLY.
 
 ## how to edit
 - clone this repo
