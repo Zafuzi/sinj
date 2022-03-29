@@ -251,6 +251,7 @@ footer {
 
 /* hover states for background colors */
 .bg-light-hover:hover { background-color: var(--light); }
+.bg-dark-hover:hover { background-color: var(--dark); }
 .bg-positive-hover:hover { background-color: var(--positive); }
 .bg-positive-darker-hover:hover { background-color: var(--positive-darker); }
 
@@ -259,13 +260,18 @@ footer {
 .button {
 	font-size: 14pt;
 	font-weight: bold;
-	border: 2px solid rgba(0,0,0,0.2);
+	border: 2px solid var(--dark);
 	border-radius: 2px;
-	padding: 4px 8px;
+	padding: 0.3em 1em;
+	transition: box-shadow 0.2s ease-in-out;
+
+	color: var(--dark);
+	background-color: var(--light);
 }
 
 .button:hover {
 	cursor: pointer;
+	box-shadow: 2px 4px 0px var(--dark);
 }
 
 @media screen and (max-width: 400px)
