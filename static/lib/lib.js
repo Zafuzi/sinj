@@ -9,8 +9,11 @@ const okay = function(data, callback)
 
 const fail = function(error, data, callback)
 {
-	console.error(error);
-	console.log(data);
+	throw new Error(error);
+	if(data)
+	{
+		console.log(data);
+	}
 	if(callback && typeof callback === "Function")
 	{
 		callback(error, data);
