@@ -23,7 +23,7 @@ const cors				= require("cors");
 const HERE  = path.dirname(module.filename);
 let app = require( "rpc" )( "/api/", HERE + "/api/", { cors: true, dev: true } );
 
-let version = "0.0.1 - Tricks"
+let version = "0.0.2 - Calamity"
 
 app.use(require("serve-static")(HERE + "/static"));
 app.use(function(request, response, next)
