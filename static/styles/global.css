@@ -147,6 +147,7 @@ footer {
 .min-height-800 { min-height: 800px; }
 .min-height-900 { min-height: 900px; }
 .min-height-1200 { min-height: 1200px; }
+.min-width-100-percent { min-width: 100%; }
 
 .max-height-100 { max-height: 100px; }
 .max-height-200 { max-height: 200px; }
