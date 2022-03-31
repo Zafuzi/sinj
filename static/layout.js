@@ -2,7 +2,7 @@ let nav = null;
 let args = sleepless.getQueryData();
 	args.route = "/" + window.location.pathname.split("/")[1];
 
-let TEST = true;
+let TEST = false;
 
 document.addEventListener("DOMContentLoaded", function()
 {

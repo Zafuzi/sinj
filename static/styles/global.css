@@ -21,6 +21,12 @@
 	--breakpoint-large: 1020px;
 	--breakpoiint-medium: 640px;
 	--breakpoiint-small: 480px;
+
+	--radius-1: 0.1rem;
+	--radius-2: 0.2rem;
+	--radius-3: 0.5rem;
+	--radius-4: 0.75rem;
+	--radius-5: 1rem;
 }
 
 * {
@@ -84,7 +90,7 @@ figure {
 	max-height: 80vh;
 	margin: 0.3em auto;
 	border: 1px solid #ccc;
-	border-radius: 12px;
+	border-radius: var(--radius-2);
 }
 figure img {
     object-fit: contain;
@@ -106,7 +112,7 @@ input[type=username],
 input[type=email] {
     padding: 1em;
     border: 2px solid var(--dark);
-	border-radius: 24px;
+	border-radius: var(--radius-2);
 }
 
 footer {
@@ -259,17 +265,30 @@ footer {
 .bg-positive-hover:hover { background-color: var(--positive); }
 .bg-positive-darker-hover:hover { background-color: var(--positive-darker); }
 
-.box { border: 2px solid var(--dark); }
-.rounded { border-radius: 0.1rem; }
-.rounded-medium { border-radius: 0.25rem; }
-.rounded-large { border-radius: 0.5rem; }
-.rounded-extra-large { border-radius: 0.75rem; }
+.border {border: 1px solid var(--dark);}
+.border-top {border-top: 1px solid var(--dark);}
+.border-right {border-right: 1px solid var(--dark);}
+.border-bottom {border-bottom: 1px solid var(--dark);}
+.border-left {border-left: 1px solid var(--dark);}
+
+@media screen and (max-width: 1020px) {
+	.lg-border-top {border-top: 1px solid var(--dark);}
+	.lg-border-right {border-right: 1px solid var(--dark);}
+	.lg-border-bottom {border-bottom: 1px solid var(--dark);}
+	.lg-border-left {border-left: 1px solid var(--dark);}
+}
+
+.radius-1 { border-radius: var(--radius-1); }
+.radius-2 { border-radius: var(--radius-2); }
+.radius-3 { border-radius: var(--radius-3); }
+.radius-4 { border-radius: var(--radius-4); }
+.radius-5 { border-radius: var(--radius-5); }
 
 .button {
 	font-size: 14pt;
 	font-weight: bold;
 	border: 0.0625rem solid var(--dark);
-	border-radius: 0.25rem;
+	border-radius: var(--radius-2);
 	padding: 0.75rem 1rem;
 	transition: box-shadow 0.2s ease-in-out;
 
