@@ -31,8 +31,6 @@
 
 * {
 	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
 }
 
 body, html {
@@ -49,8 +47,7 @@ body, html {
 
 header, main, footer {
 	margin: 0 auto;
-	width: calc(100% - 0.8em);
-	padding: 0.4em;
+	width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {

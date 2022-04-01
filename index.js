@@ -86,6 +86,25 @@ const parseLayout = function(template, context)
 	template = template.replace(/__route.title__/gm, context.route ? context.route.title : context.url);
 	template = template.replace(/__version__/gm, context.version);
 
+	let components = template.match(/__components\/(.*)__/gm);
+	for(let i = 0; i < components.length; i++)
+	{
+		let p= components[i].replace(/__components\/(.*)__/gm, HERE + "/static/components/$1.html");
+
+		if(fs.existsSync(p))
+		{
+			console.log(p);
+			try
+			{
+				template = template.replace("" + components[i], fs.readFileSync(p).toString());
+			}
+			catch(error)
+			{
+				throw new Error(error);
+			}
+		}
+	}
+
 	return template;
 }
 
