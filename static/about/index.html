@@ -3,31 +3,25 @@
 	<head>
 		<title>Nodes - About</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/styles/global.css">
+		<link rel="stylesheet" href="/styles/app.css">
+		<link rel="stylesheet" href="about.css">
 	</head>
 	<body>
-
-		<header class="max-width-1200">
-			<nav>
-				<a data-route="/" href="/">Home</a>
-				<div>
-					<a data-route="/about" href="/about">About</a>
-				</div>
-			</nav>
-		</header>
-		
-		<main class="max-width-1200">
+	
+		<main class="padding">
 			<h1>About</h1>
+			
+			<div class="flex flow-column gap-16">
+				<h2>Calling the api</h2>
+				<button class="button" id="callPing">This button calls unimplemented method</button>
+				<button class="button button-positive" id="callPong">This button calls implemented method</button>
+			</div>
 		</main>
-
-		<footer class="max-width-1200">
-			<hr>
-			<p> &copy; Company 2022 </p>
-		</footer>
 		
 		<script src="/lib/sleepless.js"></script>
-		<script src="/lib/lib.js"></script>
-		<script src="/index.js"></script>
+		<script src="/lib/helpers.js"></script>
+		<script src="/app.js"></script>
+		<script src="about.js"></script>
 	</body>
 </html>
 

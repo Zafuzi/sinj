@@ -1,0 +1,34 @@
+.button {
+	font-weight: bold;
+	border: 2px solid var(--positive-darker);
+	border-radius: var(--input-radius);
+	padding: 8px 24px;
+	transition: box-shadow 0.1s ease-in-out;
+
+	min-width: 44px;
+	max-width: 500px;
+
+	flex-shrink: 0;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+
+	color: var(--lighter);
+	background-color: var(--neutral-dark);
+	
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	justify-content: center;
+	
+	line-height: 18px;
+}
+
+.button.button-positive {
+	color: var(--lighter);
+	background-color: var(--positive);
+}
+
+.button:hover {
+	cursor: pointer;
+	box-shadow: 2px 4px 0 var(--darkest);
+}

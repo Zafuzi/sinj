@@ -1,0 +1,9 @@
+#headerNavigation a {
+	text-decoration: none;
+	font-size: 18pt;
+	color: var(--neutral);
+}
+
+#headerNavigation a.active {
+	color: var(--darkest);
+}

@@ -1,59 +1,61 @@
-delete require.cache[ module.filename ];	// always reload
-const HERE = require("path").dirname( module.filename );
+delete require.cache[module.filename];	// always reload
 
-const fs = require( "fs" );
+const path = require("path");
+const HERE = path.resolve(__dirname);
+const sleepless = require("sleepless");
+const L = sleepless.L.mkLog("--- api\t\t")(3);
 
-require("sleepless");
-const L = log5.mkLog( "BLOGS " )( 3 );
+const DS = require("ds").DS;
+const configPath = path.resolve(__dirname, ".api.config.json");
+const datastore = new DS(configPath);
 
-module.exports = function(input, _okay, _fail)
+const run = function(prefix, _input, _datastore, _okay, _fail)
 {
-	let {action} = input;
-	console.log(action);
+	const Module = require("./rpc_" + prefix + ".js");
+	const prefixModule = new Module(_input, _datastore, _okay, _fail);
 
-	if(action === "getPosts")
+	L.V(` prefix: ${prefix} | action: ${_input.action}`);
+
+	if(prefixModule[_input.action] instanceof Function)
 	{
-		rpc("https://api.imgflip.com/get_memes", {}, _okay, _fail, true);
-		return;
+		prefixModule[_input.action]();
+		return true;
 	}
 
-	if(action === "login")
+	_fail({message: "Method not found", action: _input.action});
+	return false;
+};
+
+module.exports = async function(input, _okay, _fail)
+{
+	const {prefix, action} = input;
+	
+	console.log(prefix, action);
+	
+	const okay = function(data)
 	{
-		let {username, password} = input;
-		if(!username)
-		{
-			_fail("username missing.");
-			return;
-		}
-		if(!password)
-		{
-			_fail("password missing.");
-			return;
-		}
-
-		if(!check(username, "string"))
-		{
-			_fail("username is not a string");
-			return;
-		}
-
-		if(!check(password, "string"))
-		{
-			_fail("password is not a string");
-			return;
-		}
-
-		// connect to db and check credentials
-
-		_okay();
-		return;
+		_okay({ status: 200, data });
+	}
+	
+	const fail = function(data, statusCode)
+	{
+		L.E(sleepless.o2j(data) + " prefix: " + prefix);
+		_fail({ status: statusCode || 400, data });
 	}
 
-	_fail();
-}
+	if(!action)
+	{
+		fail({message: "Action not provided"});
+		return false;
+	}
+	
+	if(prefix)
+	{
+		run(prefix, input, datastore, okay, fail);
+		return true;
+	}
 
-
-function check(obj, type)
-{
-	return typeof obj === type;
-}
+	L.E("--- Action does not exist: " + action);
+	fail({message: "Action does not exist", action}, 501);
+	return false;
+};

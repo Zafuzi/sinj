@@ -1,2 +1,2 @@
-HOSTNAME="meteormicroserver.com"
-REMOTE="root@hostname.com:/home/user/websites/$HOSTNAME"
+HOSTNAME="yourwebsite.com"
+REMOTE="root@hostname.com:/web-root/$HOSTNAME"

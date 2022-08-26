@@ -5,8 +5,8 @@ This is a simple template to make development of semi-static websites easier. Ho
 ## how to edit
 - clone this repo
 - edit `/static` files for public facing content
-- edit `/api/index.js` to add endpoints
-- edit `index.js` to change server properties
+- edit `/api/app.js` to add endpoints
+- edit `app.js` to change server properties
 
 ## how to run
 - `npm i` 
@@ -17,7 +17,7 @@ This is a simple template to make development of semi-static websites easier. Ho
 
 ## api
 
-The api works by routing to `/api/index.js`. All parameters and body data are sent there and that file decides what to do with that information.
+The api works by routing to `/api/app.js`. All parameters and body data are sent there and that file decides what to do with that information.
 
 The function that the module exports contains the logic to handle api calls. For example:
 
