@@ -2,7 +2,7 @@ import "rplc8";
 import "./styles/app.css";
 import {listen} from "./lib/helpers";
 
-const APP_VERSION = "0.0.1 - Agrandizing Arthurs";
+const APP_VERSION = "0.0.2 - Bouncing Bagan";
 
 console.log(APP_VERSION);
 document.title = `Hello world - ${APP_VERSION}`;
