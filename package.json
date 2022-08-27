@@ -2,8 +2,6 @@
   "version": "0.0.1",
   "dependencies": {
     "ds": "^1.4.2",
-    "express-compression": "^1.0.2",
-    "express-minify": "^1.0.0",
     "path": "^0.12.7",
     "rpc": "^3.3.3",
     "serve-static": "^1.15.0",

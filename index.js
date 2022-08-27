@@ -15,14 +15,9 @@ delete require.cache[module.filename];	// always reload
 const path = require("path");
 const rpc = require("rpc");
 const serve = require("serve-static");
-const minify = require("express-minify");
-const compression = require('express-compression')
 
 const HERE  = path.dirname(module.filename);
 let app = require( "rpc" )( "/api/", HERE + "/api/", { cors: true, dev: true } );
-
-app.use(compression());
-app.use(minify());
 
 app.use(require("serve-static")(HERE + "/dist"));
 
