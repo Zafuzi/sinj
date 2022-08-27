@@ -431,6 +431,7 @@ export class Router {
 		dynamicScript.id = "dynamicScript";
 		dynamicScript.src = `views/${route.path}.js?t=${Date.now()}`;
 		dynamicScript.type = "module";
+		dynamicScript.defer = true;
 
 		document.body.appendChild(dynamicScript);
 
