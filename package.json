@@ -1,7 +1,5 @@
 {
   "dependencies": {
-    "connect": "^3.7.0",
-    "cors": "^2.8.5",
     "ds": "^1.4.2",
     "path": "^0.12.7",
     "rpc": "^3.1.2",
@@ -10,8 +8,5 @@
   },
   "scripts": {
     "start": "node index.js dev"
-  },
-  "devDependencies": {
-    "webserver": "^5.0.1"
   }
 }
