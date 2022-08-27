@@ -1,3 +1,5 @@
+export const APP_VERSION = "0.0.4 - Dancing Ding Dongs";
+
 /*
 Copyright 2015-2020 Sleepless Software Inc. All rights reserved.
 
@@ -22,7 +24,6 @@ IN THE SOFTWARE.
 
 // Replaces instances of "__key__" in string s,
 // with the values from corresponding key in data.
-import {APP_VERSION} from "./VERSION.js";
 
 let substitute = function(s, data)
 {

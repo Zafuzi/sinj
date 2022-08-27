@@ -1,6 +1,12 @@
-import "./lib/startup.js";
+import {listen, Micro, Route, Router} from "./lib/lib.js";
 
-import {listen, Micro} from "./lib/lib.js";
+const router = new Router([
+	new Route('home', 'home/home', true),
+	new Route('about', 'about/about'),
+	new Route('nested', 'nested/nested_page/nested_page'),
+]);
+
+console.log(document.title);
 
 listen("#reloadPage", "click", function(event)
 {
