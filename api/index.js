@@ -30,8 +30,6 @@ module.exports = async function(input, _okay, _fail)
 {
 	const {prefix, action} = input;
 
-	console.log(prefix, action);
-
 	const okay = function(data)
 	{
 		_okay({ status: 200, ...data });
