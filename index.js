@@ -15,10 +15,17 @@ delete require.cache[module.filename];	// always reload
 const path = require("path");
 const rpc = require("rpc");
 const serve = require("serve-static");
+const minify = require("express-minify");
+const compression = require('express-compression')
 
 const HERE  = path.dirname(module.filename);
 let app = require( "rpc" )( "/api/", HERE + "/api/", { cors: true, dev: true } );
+
+app.use(compression());
+app.use(minify());
+
 app.use(require("serve-static")(HERE + "/static"));
+
 app.use((req, res, next) =>
 {
 	res.setHeader("Access-Control-Allow-Origin", "*");
@@ -29,5 +36,13 @@ app.use((req, res, next) =>
 	res.setHeader("X-WebKit-CSP", "default-src 'self'");
 	next();
 });
+
+if(process.argv.indexOf("localdev") !== -1)
+{
+	const server = app.listen(0, function()
+	{
+		console.log(`App listening at: http://localhost:${server.address().port}`);
+	});
+}
 
 module.exports = app;
