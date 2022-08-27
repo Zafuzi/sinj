@@ -7,10 +7,14 @@ const DS = require("ds").DS;
 const configPath = path.resolve(__dirname, ".api.config.json");
 const datastore = new DS(configPath);
 
-// get all the methods we want to be able to call here
-methods = {
-	...require("./rpc_ping")
+const STATUS_CODES = {
+	OKAY: 0,
+	USER_ERROR: 1,
+	SERVER_ERROR: 2,
 }
+
+// get all the methods we want to be able to call here
+imported_modules = { ...require("./rpc_ping") }
 
 module.exports = async function(input, _okay, _fail)
 {
@@ -23,15 +27,15 @@ module.exports = async function(input, _okay, _fail)
 		let blob = { message, data, action, input }
 		L.V(sleepless.o2j(blob));
 		
-		_okay({ status: 200, message, ...data });
+		_okay({ status: STATUS_CODES.OKAY, message, ...data });
 	}
 
 	const fail = function(message, data, status)
 	{
-		let blob = { status: status || 400, message, data, action, input }
+		let blob = { status: status || STATUS_CODES.USER_ERROR, message, data, action, input }
 		L.E(sleepless.o2j(blob));
 		
-		_fail({ status: status || 400, message, ...data });
+		_fail({ status: status || STATUS_CODES.USER_ERROR, message, ...data });
 	}
 
 	if(!action)
@@ -42,12 +46,12 @@ module.exports = async function(input, _okay, _fail)
 
 	// try catch makes it simple to detect missing actions
 	try {
-		methods[action](input, okay, fail);
+		imported_modules[action](input, okay, fail);
 		return true;
 	}
 	catch(e)
 	{
-		fail("failed to execute action", { error: e, action, input, });
+		fail("failed to execute action", { error: e, action, input });
 		return false;
 	}
 };
