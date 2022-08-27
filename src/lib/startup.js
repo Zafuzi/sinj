@@ -1,4 +1,4 @@
-import {Route, Router, rplc8} from "./lib.js";
+import {Route, Router} from "./lib.js";
 
 const router = new Router([
 	new Route('home', 'home/home', true),
