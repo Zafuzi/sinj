@@ -1,8 +1,8 @@
 .button {
 	font-weight: bold;
-	border: 2px solid var(--positive-darker);
+	border: 2px solid var(--neutral-dark);
 	border-radius: var(--input-radius);
-	padding: 8px 24px;
+	padding: 4px 12px;
 	transition: box-shadow 0.1s ease-in-out;
 
 	min-width: 44px;
@@ -12,8 +12,8 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 
-	color: var(--lighter);
-	background-color: var(--neutral-dark);
+	color: var(--darker);
+	background-color: var(--lighter);
 	
 	display: flex;
 	flex-flow: row nowrap;

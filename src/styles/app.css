@@ -1,9 +1,7 @@
-/* resets and globals */
 @import "normalize.css";
-/*@import "ionicons.css";*/
+@import "ionicons.css";
 @import "variables.css";
 @import "resets.css";
 @import "buttons.css";
 
-/* global components */
 @import "header.css";

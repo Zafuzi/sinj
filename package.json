@@ -1,4 +1,5 @@
 {
+  "version": "0.0.1",
   "dependencies": {
     "ds": "^1.4.2",
     "express-compression": "^1.0.2",
@@ -9,6 +10,21 @@
     "sleepless": "^4.9.0"
   },
   "scripts": {
-    "start": "node index.js localdev"
+    "start": "NODE_ENV=development npx webpack --watch",
+    "start_nodes": "node ../nodes/nodes dev ./dist 12345",
+    "clean": "rm -rf dist; rm -rf node_modules; npm i;",
+    "pack": "NODE_ENV=production npx webpack",
+    "deploy": "./deploy.sh"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.7.1",
+    "html-loader": "^4.1.0",
+    "html-webpack-plugin": "^5.5.0",
+    "less-loader": "^11.0.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "rplc8": "^1.1.0",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
   }
 }

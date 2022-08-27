@@ -32,7 +32,7 @@ h5 { font-size: 13pt; }
 
 hr {
 	border: 2px solid var(--neutral);
-	border-radius: var(--radius-2);
+	border-radius: 2px;
 }
 
 figure {
@@ -43,7 +43,7 @@ figure {
 	max-height: 80vh;
 	margin: 0.3em auto;
 	border: 1px solid #ccc;
-	border-radius: var(--radius-2);
+	border-radius: 2px;
 }
 figure img {
 	object-fit: contain;

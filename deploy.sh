@@ -1,31 +1,23 @@
 #!/bin/bash
 
 # config vars defines LOCAL and REMOTE
-. ./.config
+. ./.config || exit;
 
-rm -rf dist;
-mkdir dist;
-cp -R static dist;
-cp -R api dist;
-cp index.js dist;
-cp package.json dist;
+npm run clean
+mkdir dist || exit;
+npm run pack
 
 echo "files copied";
-echo "running npm install";
-cd dist;
-npm i --silent;
 
-echo "";
-echo "deploying";
-echo "LOCAL:" $PWD;
-echo "REMOTE: $REMOTE";
-echo "";
+cd dist || exit;
+
+echo -e "\n--- deploying";
+echo -e "--- LOCAL: $PWD";
+echo -e "--- REMOTE: $REMOTE\n";
 
 if rsync -a --info=progress2 --info=name0 . "$REMOTE"; then
-  echo ""
-  echo "OKAY!"
-  echo "app deployed to https://$HOSTNAME";
+  echo -e "\n--- OKAY!"
+  echo -e "app deployed to https://$HOSTNAME\n";
 else
-  echo ""
-  echo "FAIL!"
+  echo -e "\n--- FAIL!"
 fi

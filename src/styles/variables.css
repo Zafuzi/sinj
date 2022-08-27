@@ -28,16 +28,5 @@
 	--breakpoiint-medium: 640px;
 	--breakpoiint-small: 480px;
 
-	--radius-2: 2px;
-	--radius-4: 4px;
-	--radius-6: 6px;
-	--radius-8: 8px;
-	--radius-12: 12px;
-	--radius-16: 16px;
-	--radius-24: 24px;
-	--radius-48: 48px;
-	--radius-50-percent: 50%;
-	--radius-100-percent: 100%;
-	
-	--input-radius: var(--radius-16);
+	--input-radius: 3px;
 }
