@@ -16,8 +16,9 @@ listen("#reloadPage", "click", function(event)
 
 listen("#callAPI-ping", "click", function(event)
 {
-	Nodes.call({prefix: "ping", action: "pong"}, function(response)
+	Nodes.call({action: "ping"}, function(response)
 	{
+		console.log(response);
 		if(response.data?.message)
 		{
 			alert(response.data.message);
