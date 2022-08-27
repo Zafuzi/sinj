@@ -6,6 +6,8 @@
 npm run clean
 mkdir dist || exit;
 npm run pack
+cp -R api/ dist;
+cp index.js dist;
 
 echo "files copied";
 
