@@ -19,7 +19,6 @@ const serve = require("serve-static");
 const HERE  = path.dirname(module.filename);
 let app = require( "rpc" )( "/api/", HERE + "/api/", { cors: true, dev: true } );
 
-app.use(require("serve-static")(HERE + "/dist"));
 
 app.use((req, res, next) =>
 {
@@ -34,11 +33,16 @@ app.use((req, res, next) =>
 
 if(process.argv.indexOf("localdev") !== -1)
 {
+	app.use(require("serve-static")(HERE + "/src"));
 	const PORT = 12345;
 	const server = app.listen(PORT, function()
 	{
 		console.log(`App listening at: http://localhost:${server.address().port}`);
 	});
+}
+else
+{
+	app.use(require("serve-static")(HERE + "/dist"));
 }
 
 module.exports = app;

@@ -1,2 +1,0 @@
-HOSTNAME="yourwebsite.com"
-REMOTE="root@hostname.com:/web-root/$HOSTNAME"

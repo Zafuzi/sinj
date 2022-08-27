@@ -1,13 +1,6 @@
-import "rplc8";
-import "./styles/app.css";
-import {listen, Nodes} from "./lib/helpers";
-import {APP_VERSION} from "./VERSION";
+import "./lib/startup.js";
 
-console.log(APP_VERSION);
-document.title = `Hello world - ${APP_VERSION}`;
-
-let header = rplc8("#r8_header");
-header.update({APP_VERSION});
+import {listen, Micro} from "./lib/lib.js";
 
 listen("#reloadPage", "click", function(event)
 {
@@ -16,7 +9,7 @@ listen("#reloadPage", "click", function(event)
 
 listen("#callAPI-ping", "click", function(event)
 {
-	Nodes.call({action: "ping"}, function(response)
+	Micro.call({action: "ping"}, function(response)
 	{
 		console.log(response);
 		if(response.data?.message)

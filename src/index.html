@@ -1,15 +1,32 @@
 <!doctype html>
 <html lang="en">
 	<head>
-		<title><%= htmlWebpackPlugin.options.title %></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title id="r8_title">Micro</title>
+		<link rel="stylesheet" href="styles/normalize.css">
+		<link rel="stylesheet" href="styles/variables.css">
+		<link rel="stylesheet" href="styles/resets.css">
+		<link rel="stylesheet" href="styles/ionicons.css">
+		<link rel="stylesheet" href="styles/buttons.css">
+		<link rel="stylesheet" href="styles/app.css">
 	</head>
 	<body>
-		<header class="flex flow-column align-center gap-8">
+		<header class="flex flow-column align-center gap-8 padding">
+			
 			<block>
-				<h1 id="r8_header">App Version: __APP_VERSION__</h1>
+				<nav id="headerNavigation" class="flex flow-row align-center gap-8">
+					<a href="#home">Home</a>
+					<a href="#about">About</a>
+					<a href="#nested">Nested Page</a>
+				</nav>
 			</block>
+			
 			<button class="button" id="reloadPage">Reload Page</button>
 			<button class="button" id="callAPI-ping">Call API (ping)</button>
 		</header>
+	
+		<main id="app"></main>
+	
+		<script type="module" src="app.js"></script>
 	</body>
 </html>
