@@ -39,7 +39,7 @@ module.exports = {
 		new CopyWebpackPlugin({
 			patterns: [
 				{ from: 'src/fonts', to: './fonts' },
-				// { from: 'src/favicon.ico', to: './favicon.ico' },
+				{ from: 'src/favicon.ico', to: './favicon.ico' },
 				// { from: 'src/manifest.json', to: './manifest.json' },
 				// { from: 'src/robots.txt', to: './robots.txt' },
 			],
