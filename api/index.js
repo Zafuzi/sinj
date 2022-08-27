@@ -32,6 +32,9 @@ module.exports = async function(input, _okay, _fail)
 
 	const okay = function(data)
 	{
+		let blob = { action, prefix, data, input }
+		L.V(sleepless.o2j(blob));
+		
 		_okay({ status: 200, ...data });
 	}
 

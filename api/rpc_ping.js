@@ -19,6 +19,7 @@ class PingMethods extends Module
 	pong()
 	{
 		this.okay({message: "pong"});
+		L.I("PONG");
 	}
 }
 
