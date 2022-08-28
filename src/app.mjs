@@ -23,11 +23,6 @@ window.addEventListener("load", function()
 	const parsedURL = new URL(window.location);
 	const route = parsedURL.pathname;
 
-	if(route !== "/editor")
-	{
-		document.querySelector(`[href="/editor"]`).classList.add("hid");
-	}
-
 	document.title = `Micro | ${APP_VERSION}`
 	document.querySelector(`[href="${route}"]`).classList.add("active");
 
