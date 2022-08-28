@@ -14,7 +14,8 @@ const STATUS_CODES = {
 }
 
 // get all the methods we want to be able to call here
-imported_modules = { ...require("./rpc_ping") }
+imported_modules = { ...require("./rpc_ping"), ...require("./rpc_foo" ) }
+console.log(imported_modules);
 
 module.exports = async function(input, _okay, _fail)
 {

@@ -18,6 +18,18 @@ listen("#callAPI-ping", "click", function(event)
 	});
 })
 
+listen("#callAPI-foo", "click", function(event)
+{
+	Micro.call({action: "foo"}, function(response)
+	{
+		console.log(response);
+		if(response.data?.message)
+		{
+			alert(response.data.message);
+		}
+	});
+})
+
 window.addEventListener("load", function()
 {
 	let link = window.location.href.split("/").pop();
