@@ -22,7 +22,7 @@ const url = require("whatwg-url");
 const HERE  = path.dirname(module.filename);
 let app = require( "rpc" )( "/api/", HERE + "/api/", { cors: true, dev: true } );
 
-const L = sleepless.log5.mkLog("--- Micro\t\t")(5);
+const L = sleepless.log5.mkLog("--- Micro\t\t")(3);
 
 app.use((req, res, next) =>
 {
@@ -92,26 +92,21 @@ app.use(async function(req, res, next)
 		baseURL: req.url
 	});
 
-	const route = parsedURL.path[0];
+	let route = parsedURL.path[0];
+	if(route === "")
+	{
+		route = "home";
+	}
 
 	const searchParams = new URLSearchParams(parsedURL.query);
 	//console.log(parsedURL.path, req.url)
 	
-	if(route === "")
-	{
-		await applyLayout("home/home.html");
-		return true;
-	}
+	const routes = require("./routes");
 	
-	if(route === "about")
+	if(routes[route])
 	{
-		await applyLayout("about/about.html");
-		return true;
-	}
-	
-	if(route === "nested")
-	{
-		await applyLayout("nested/nested_page/nested_page.html");
+		L.D(routes[route]);
+		await applyLayout(routes[route].view);
 		return true;
 	}
 	

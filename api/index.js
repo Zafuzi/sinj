@@ -1,3 +1,5 @@
+delete require.cache[module.filename];	// always reload
+
 const path = require("path");
 const HERE = path.resolve(__dirname);
 const sleepless = require("sleepless");
@@ -14,12 +16,10 @@ const STATUS_CODES = {
 }
 
 // get all the methods we want to be able to call here
-imported_modules = { ...require("./rpc_ping") }
+const imported_modules = {...require("./apis.js")};
 
 module.exports = async function(input, _okay, _fail)
 {
-	delete require.cache[module.filename];	// always reload
-	
 	const {action} = input;
 
 	const okay = function(message, data)
@@ -46,6 +46,7 @@ module.exports = async function(input, _okay, _fail)
 
 	// try catch makes it simple to detect missing actions
 	try {
+		console.log(imported_modules);
 		imported_modules[action](input, okay, fail);
 		return true;
 	}
