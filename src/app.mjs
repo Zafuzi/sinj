@@ -21,10 +21,10 @@ listen("#callAPI-ping", "click", function(event)
 window.addEventListener("load", function()
 {
 	const parsedURL = new URL(window.location);
-	const route = parsedURL.pathname;
+	const route = parsedURL.pathname.split("/")[1];
 
 	document.title = `Micro | ${APP_VERSION}`
-	document.querySelector(`[href="${route}"]`).classList.add("active");
+	document.querySelector(`[href="/${route}"]`)?.classList.add("active");
 
 	let stylesheets = document.querySelectorAll("link[rel='preload']");
 	stylesheets.forEach(function(stylesheet)
