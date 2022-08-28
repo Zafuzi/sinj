@@ -1,0 +1,11 @@
+@import "./normalize.css";
+@import "./variables.css";
+@import "./ionicons.css";
+@import "./buttons.css";
+@import "./resets.css";
+@import "./header.css";
+
+.transparent {
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+}

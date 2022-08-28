@@ -23,6 +23,17 @@ let app = require( "rpc" )( "/api/", HERE + "/api/", { cors: true, dev: true } )
 
 const L = sleepless.log5.mkLog("--- Micro\t\t")(5);
 
+app.use((req, res, next) =>
+{
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
+	res.setHeader("Content-Security-Policy", "default-src 'self'");
+	res.setHeader("X-Content-Security-Policy", "default-src 'self'");
+	res.setHeader("X-WebKit-CSP", "default-src 'self'");
+	next();
+});
+
 app.use(async function(req, res, next)
 {
 	const applyLayout = async function(routePath)
@@ -98,16 +109,6 @@ app.use(async function(req, res, next)
 	return false;
 });
 
-app.use((req, res, next) =>
-{
-	res.setHeader("Access-Control-Allow-Origin", "*");
-	res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-	res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
-	res.setHeader("Content-Security-Policy", "default-src 'self'");
-	res.setHeader("X-Content-Security-Policy", "default-src 'self'");
-	res.setHeader("X-WebKit-CSP", "default-src 'self'");
-	next();
-});
 
 if(process.argv.indexOf("localdev") !== -1)
 {

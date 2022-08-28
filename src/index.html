@@ -2,37 +2,42 @@
 <html lang="en">
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+		<meta charset="UTF-8">
+		<meta name="description" content="This is a small performant template for building smaller websites.">
 		<title id="r8_title">Micro</title>
 		
-		<link rel="stylesheet" href="styles/normalize.css">
-		<link rel="stylesheet" href="styles/variables.css">
-		<link rel="stylesheet" href="styles/resets.css">
-		<link rel="stylesheet" href="styles/ionicons.css">
-		<link rel="stylesheet" href="styles/buttons.css">
-		<link rel="stylesheet" href="styles/header.css">
 		<link rel="stylesheet" href="styles/app.css">
 	</head>
 	<body>
-		<header class="flex flow-column align-center gap-8 padding">
-			
-			<block>
-				<nav id="headerNavigation" class="flex flow-row align-center gap-8">
-					<a href="/">Home</a>
-					<a href="/about">About</a>
-					<a href="/nested">Nested Page</a>
-				</nav>
-			</block>
-			
-			<button class="button" id="reloadPage">Reload Page</button>
-			<button class="button" id="callAPI-ping">Call API (ping)</button>
-		</header>
-	
-		<main>
-			__yield__
-		</main>
+		<div id="loadingIndicator">
+			<center>
+				<h3>Loading...</h3>
+			</center>
+		</div>
 		
-		<footer></footer>
+		<div class="transparent" id="mainContent">
+			<header class="flex flow-column align-center gap-8 padding">
+																		   
+																		   <block>
+																		   <nav id="headerNavigation" class="flex flow-row align-center gap-8">
+																		   <a href="/">Home</a>
+																		   <a href="/about">About</a>
+																		   <a href="/nested">Nested Page</a>
+																		   </nav>
+																		   </block>
+																		   
+																		   <button class="button" id="reloadPage">Reload Page</button>
+																		   <button class="button" id="callAPI-ping">Call API (ping)</button>
+																		   </header>
+		
+			<main>
+				__yield__
+			</main>
+			
+			<footer></footer>
+		</div>
 	
-		<script type="module" src="app.js"></script>
+		<script defer async type="module" src="app.js"></script>
 	</body>
 </html>
