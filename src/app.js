@@ -1,10 +1,4 @@
-import {listen, Micro, Route, Router} from "./lib/lib.js";
-
-const router = new Router([
-	new Route('home', 'home/home', true),
-	new Route('about', 'about/about'),
-	new Route('nested', 'nested/nested_page/nested_page'),
-]);
+import {listen, Micro} from "./lib/lib.js";
 
 console.log(document.title);
 

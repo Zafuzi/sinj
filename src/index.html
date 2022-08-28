@@ -17,9 +17,9 @@
 			
 			<block>
 				<nav id="headerNavigation" class="flex flow-row align-center gap-8">
-					<a href="#home">Home</a>
-					<a href="#about">About</a>
-					<a href="#nested">Nested Page</a>
+					<a href="/">Home</a>
+					<a href="/about">About</a>
+					<a href="/nested">Nested Page</a>
 				</nav>
 			</block>
 			
@@ -27,7 +27,11 @@
 			<button class="button" id="callAPI-ping">Call API (ping)</button>
 		</header>
 	
-		<main id="app"></main>
+		<main>
+			__yield__
+		</main>
+		
+		<footer></footer>
 	
 		<script type="module" src="app.js"></script>
 	</body>

@@ -15,10 +15,88 @@ delete require.cache[module.filename];	// always reload
 const path = require("path");
 const rpc = require("rpc");
 const serve = require("serve-static");
+const fs = require("fs");
+const sleepless = require("sleepless");
 
 const HERE  = path.dirname(module.filename);
 let app = require( "rpc" )( "/api/", HERE + "/api/", { cors: true, dev: true } );
 
+const L = sleepless.log5.mkLog("--- Micro\t\t")(5);
+
+app.use(async function(req, res, next)
+{
+	const applyLayout = async function(routePath)
+	{
+		fs.readFile(path.resolve(HERE + "/src/index.html"), function(error, layoutFile)
+		{
+			if(error)
+			{
+				L.E(error);
+				next();
+				return false;
+			}
+			
+			if(!layoutFile)
+			{
+				L.E(error);
+				next();
+				return false;
+			}
+			
+			fs.readFile(path.resolve(HERE + "/src/views/" + routePath), function(templateError, templateFile)
+			{
+				if(templateError)
+				{
+					L.E(templateError);
+					next();
+					return false;
+				}
+				
+				if(!templateFile)
+				{
+					L.E("missing templateFile");
+					next();
+					return false;
+				}
+
+				let html = layoutFile?.toString().replace("__yield__", templateFile.toString());
+				if(html)
+				{
+					// inject html
+					res.write(html);
+					res.end();
+					return true;
+				}
+				else
+				{
+					next();
+					return false;
+				}
+			});
+		});
+	}
+	
+	if(req.url === "/")
+	{
+		await applyLayout("home/home.html");
+		return true;
+	}
+	
+	if(req.url === "/about")
+	{
+		await applyLayout("about/about.html");
+		return true;
+	}
+	
+	if(req.url === "/nested")
+	{
+		await applyLayout("nested/nested_page/nested_page.html");
+		return true;
+	}
+	
+	next();
+	return false;
+});
 
 app.use((req, res, next) =>
 {
