@@ -46,7 +46,6 @@ module.exports = async function(input, _okay, _fail)
 
 	// try catch makes it simple to detect missing actions
 	try {
-		console.log(imported_modules);
 		imported_modules[action](input, okay, fail);
 		return true;
 	}
