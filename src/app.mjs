@@ -1,4 +1,4 @@
-import {listen, Micro} from "./lib/lib.js";
+import {APP_VERSION, listen, Micro} from "./lib/lib.js";
 console.log(document.title);
 
 listen("#reloadPage", "click", function(event)
@@ -20,9 +20,17 @@ listen("#callAPI-ping", "click", function(event)
 
 window.addEventListener("load", function()
 {
-	let link = window.location.href.split("/").pop();
-	document.querySelector(`[href="/${link}"]`).classList.add("active");
-	
+	const parsedURL = new URL(window.location);
+	const route = parsedURL.pathname;
+
+	if(route !== "/editor")
+	{
+		document.querySelector(`[href="/editor"]`).classList.add("hid");
+	}
+
+	document.title = `Micro | ${APP_VERSION}`
+	document.querySelector(`[href="${route}"]`).classList.add("active");
+
 	let stylesheets = document.querySelectorAll("link[rel='preload']");
 	stylesheets.forEach(function(stylesheet)
 	{
