@@ -1,4 +1,4 @@
-export const APP_VERSION = "0.0.5 - Everlasting Eggwash";
+export const APP_VERSION = "0.0.6 - Free Frolics";
 
 /*
 Copyright 2015-2020 Sleepless Software Inc. All rights reserved.
