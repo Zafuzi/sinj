@@ -8,3 +8,4 @@
 `npm run clean`
 bump version in `src/lib.js`
 `npm run pack`
+
