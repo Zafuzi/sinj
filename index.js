@@ -70,7 +70,7 @@ app.use(async function(req, res, next)
 					next();
 					return false;
 				}
-
+				
 				let html = layoutFile?.toString().replace("__yield__", templateFile.toString());
 				if(html)
 				{
@@ -95,6 +95,7 @@ app.use(async function(req, res, next)
 	const route = parsedURL.path[0];
 
 	const searchParams = new URLSearchParams(parsedURL.query);
+	//console.log(parsedURL.path, req.url)
 	
 	if(route === "")
 	{
