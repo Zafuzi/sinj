@@ -1,4 +1,4 @@
-export const APP_VERSION = "0.0.6 - Free Frolics";
+export const APP_VERSION = "0.0.7 - Gorgon Gartrudenth";
 
 /*
 Copyright 2015-2020 Sleepless Software Inc. All rights reserved.
