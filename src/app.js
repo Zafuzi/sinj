@@ -20,9 +20,12 @@ listen("#callAPI-ping", "click", function(event)
 
 window.addEventListener("load", function()
 {
-	document.querySelector("#loadingIndicator").remove();
-	document.querySelector("#mainContent").classList.remove("transparent");
-	
 	let link = window.location.href.split("/").pop();
 	document.querySelector(`[href="/${link}"]`).classList.add("active");
+	
+	let stylesheets = document.querySelectorAll("link[rel='preload']");
+	stylesheets.forEach(function(stylesheet)
+	{
+		stylesheet.setAttribute("rel", "stylesheet");
+	});
 });

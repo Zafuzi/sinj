@@ -7,37 +7,32 @@
 		<meta name="description" content="This is a small performant template for building smaller websites.">
 		<title id="r8_title">Micro</title>
 		
-		<link rel="stylesheet" href="styles/app.css">
-		<link rel="stylesheet" href="styles/ionicons.css">
+		<link rel="preload" href="styles/app.css" as="style">
+		<noscript><link rel="stylesheet" href="styles/app.css"></noscript>
+		
+		<link rel="preload" href="styles/ionicons.css" as="style">
+		<noscript><link rel="stylesheet" href="styles/ionicons.css"></noscript>
 	</head>
 	<body>
-		<div id="loadingIndicator">
-			<center>
-				<h3>Loading...</h3>
-			</center>
-		</div>
+		<header class="flex flow-column align-center gap-8 padding">
+															   
+															   <block>
+															   <nav id="headerNavigation" class="flex flow-row align-center gap-8">
+															   <a href="/">Home</a>
+															   <a href="/about">About</a>
+															   <a href="/nested">Nested Page</a>
+															   </nav>
+															   </block>
+															   
+															   <button class="button" id="reloadPage">Reload Page</button>
+															   <button class="button" id="callAPI-ping">Call API (ping)</button>
+															   </header>
+	
+		<main>
+			__yield__
+		</main>
 		
-		<div class="transparent" id="mainContent">
-			<header class="flex flow-column align-center gap-8 padding">
-																		   
-																		   <block>
-																		   <nav id="headerNavigation" class="flex flow-row align-center gap-8">
-																		   <a href="/">Home</a>
-																		   <a href="/about">About</a>
-																		   <a href="/nested">Nested Page</a>
-																		   </nav>
-																		   </block>
-																		   
-																		   <button class="button" id="reloadPage">Reload Page</button>
-																		   <button class="button" id="callAPI-ping">Call API (ping)</button>
-																		   </header>
-		
-			<main>
-				__yield__
-			</main>
-			
-			<footer></footer>
-		</div>
+		<footer></footer>
 	
 		<script defer type="module" src="app.js"></script>
 	</body>

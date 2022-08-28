@@ -154,9 +154,7 @@ footer {
 	box-shadow: 2px 4px 0 var(--darkest);
 }
 
-.transparent {
-	opacity: 0;
-}
+.transparent { opacity: 0; }
 
 .text-left { text-align: left; }
 .text-center { text-align: center; }
