@@ -17,6 +17,7 @@ const rpc = require("rpc");
 const serve = require("serve-static");
 const fs = require("fs");
 const sleepless = require("sleepless");
+const url = require("whatwg-url");
 
 const HERE  = path.dirname(module.filename);
 let app = require( "rpc" )( "/api/", HERE + "/api/", { cors: true, dev: true } );
@@ -86,20 +87,28 @@ app.use(async function(req, res, next)
 			});
 		});
 	}
+
+	const parsedURL = url.parseURL(req.url, {
+		baseURL: req.url
+	});
+
+	const route = parsedURL.path[0];
+
+	const searchParams = new URLSearchParams(parsedURL.query);
 	
-	if(req.url === "/")
+	if(route === "")
 	{
 		await applyLayout("home/home.html");
 		return true;
 	}
 	
-	if(req.url === "/about")
+	if(route === "about")
 	{
 		await applyLayout("about/about.html");
 		return true;
 	}
 	
-	if(req.url === "/nested")
+	if(route === "nested")
 	{
 		await applyLayout("nested/nested_page/nested_page.html");
 		return true;
