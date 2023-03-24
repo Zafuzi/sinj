@@ -8,13 +8,15 @@ listen("#reloadPage", "click", function(event)
 
 listen("#callAPI-ping", "click", function(event)
 {
-	Micro.call({action: "ping"}, function(response)
+	Micro.call({action: "ping"}, function(error, response)
 	{
-		console.log(response);
-		if(response.data?.message)
-		{
-			alert(response.data.message);
-		}
+        if(error)
+        {
+            console.error(error);
+            return;
+        }
+        
+        alert("Message from ping: " + response.data?.message);
 	});
 })
 

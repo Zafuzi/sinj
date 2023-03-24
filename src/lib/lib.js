@@ -262,16 +262,11 @@ export const fail = function(response)
 };
 
 export const Micro = {
-	call(data, _okay, _fail)
+	call(data, _okay)
 	{
 		if(!(_okay instanceof Function))
 		{
 			_okay = console.log;
-		}
-		
-		if(!(_fail instanceof Function))
-		{
-			_fail = console.error;
 		}
 		
 		const MISSING_RESPONSE = {error: "missing api response"};
@@ -287,11 +282,11 @@ export const Micro = {
 			if(xhr.status !== 200)
 			{ 
 				console.error(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
-				_fail(JSON.parse(xhr?.response || MISSING_RESPONSE));
+				_okay(JSON.parse(xhr?.response || MISSING_RESPONSE), null);
 			}
 			else
 			{
-				_okay(JSON.parse(xhr?.responseText || MISSING_RESPONSE));
+				_okay(null, JSON.parse(xhr?.responseText || MISSING_RESPONSE));
 			}
 		};
 
@@ -303,7 +298,7 @@ export const Micro = {
 		xhr.onerror = function()
 		{
 			// NOP
-			_fail(CALL_FAILED);
+			_okay(CALL_FAILED, null);
 		};
 	}
 };
