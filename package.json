@@ -1,6 +1,7 @@
 {
   "version": "0.0.1",
   "dependencies": {
+    "connect": "^3.7.0",
     "coughdrop": "^3.2.4",
     "ds": "^1.4.2",
     "path": "^0.12.7",

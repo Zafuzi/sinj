@@ -1,28 +1,27 @@
-/*
-    dependencies
-        - fs
-        - sleepless
-        - connect
-        - rpc
-        - serve-static
-        - handlebars
-        - cors
-*/
-
 delete require.cache[module.filename];	// always reload
 
-/* REQUIRES */
 const path = require("path");
 const rpc = require("rpc");
 const serve = require("serve-static");
 const fs = require("fs");
 const sleepless = require("sleepless");
 const url = require("whatwg-url");
-
 const HERE  = path.dirname(module.filename);
-let app = require( "rpc" )( "/api/", HERE + "/api/", { cors: true, dev: true } );
-
 const L = sleepless.log5.mkLog("--- Micro\t\t")(3);
+
+let app = require( "rpc" )( "/server/", HERE + "/server/", { cors: true, dev: true } );
+
+const routes = {
+    home: {
+        view: "home.html"
+    },
+    about: {
+        view: "about.html"
+    },
+    nested: {
+        view: "nested_page.html"
+    }
+}
 
 app.use((req, res, next) =>
 {
@@ -39,7 +38,7 @@ app.use(async function(req, res, next)
 {
 	const applyLayout = async function(routePath)
 	{
-		fs.readFile(path.resolve(HERE + "/src/index.html"), function(error, layoutFile)
+		fs.readFile(path.resolve(HERE + "/client/index.html"), function(error, layoutFile)
 		{
 			if(error)
 			{
@@ -55,7 +54,7 @@ app.use(async function(req, res, next)
 				return false;
 			}
 			
-			fs.readFile(path.resolve(HERE + "/src/views/" + routePath), function(templateError, templateFile)
+			fs.readFile(path.resolve(HERE + "/client/views/" + routePath), function(templateError, templateFile)
 			{
 				if(templateError)
 				{
@@ -101,8 +100,6 @@ app.use(async function(req, res, next)
 	const searchParams = new URLSearchParams(parsedURL.query);
 	//console.log(parsedURL.path, req.url)
 	
-	const routes = require("./routes");
-	
 	if(routes[route])
 	{
 		L.D(routes[route]);
@@ -117,7 +114,7 @@ app.use(async function(req, res, next)
 
 if(process.argv.indexOf("localdev") !== -1)
 {
-	app.use(require("serve-static")(HERE + "/src"));
+	app.use(require("serve-static")(HERE + "/client"));
 	const PORT = 12345;
 	const server = app.listen(PORT, function()
 	{
