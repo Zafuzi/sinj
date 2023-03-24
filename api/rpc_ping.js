@@ -1,8 +1,8 @@
 delete require.cache[module.filename];
 
 module.exports = {
-	ping(input, okay, fail)
+	ping(input, okay)
 	{
-		okay("ping");
+		okay("pong");
 	}
 }
