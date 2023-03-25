@@ -5,6 +5,8 @@ const HERE = path.resolve(__dirname);
 const sleepless = require("sleepless");
 const L = sleepless.L.mkLog("--- server\t\t")(5);
 
+const { o2j, } = sleepless;
+
 const methods = {
     ping()
     {
@@ -18,6 +20,8 @@ const methods = {
 
 module.exports = function(input, okay, fail)
 {
+    L.D( "input: "+o2j(input) );
+
 	const {action} = input;
 
 	if(!action) {

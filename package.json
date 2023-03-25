@@ -7,7 +7,7 @@
     "path": "^0.12.7",
     "rpc": "^3.3.3",
     "serve-static": "^1.15.0",
-    "sleepless": "^4.9.0",
+    "sleepless": "^5.5.4",
     "whatwg-url": "^11.0.0"
   },
   "scripts": {
