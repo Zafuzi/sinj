@@ -14,6 +14,8 @@ if(process.argv.indexOf("-vd") !== -1) L(5);
 
 const app = require("connect")();
 
+
+// simple logger
 app.use((req, res, next) =>
 {
     L.V( req.method + " " + req.url );
@@ -35,6 +37,7 @@ const routes = {
     }
 }
 
+// Some of these should maybe be upstream of the rpc middleware XXX
 app.use((req, res, next) =>
 {
 	res.setHeader("Access-Control-Allow-Origin", "*");
