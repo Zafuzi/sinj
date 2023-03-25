@@ -7,7 +7,7 @@ const fs = require("fs");
 const sleepless = require("sleepless");
 const url = require("whatwg-url");
 const HERE  = path.dirname(module.filename);
-const L = sleepless.log5.mkLog("--- Micro\t\t")(3);
+const L = sleepless.log5.mkLog("--- KetoJS\t\t")(3);
 
 if(process.argv.indexOf("-vv") !== -1) L(4);
 if(process.argv.indexOf("-vd") !== -1) L(5);
