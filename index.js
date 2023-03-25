@@ -1,15 +1,27 @@
 delete require.cache[module.filename];	// always reload
 
 const path = require("path");
-const rpc = require("rpc");
-const serve = require("serve-static");
+//const rpc = require("rpc");
+//const serve = require("serve-static");
 const fs = require("fs");
 const sleepless = require("sleepless");
 const url = require("whatwg-url");
 const HERE  = path.dirname(module.filename);
 const L = sleepless.log5.mkLog("--- Micro\t\t")(3);
 
-let app = require( "rpc" )( "/server/", HERE + "/server/", { cors: true, dev: true } );
+if(process.argv.indexOf("-vv") !== -1) L(4);
+if(process.argv.indexOf("-vd") !== -1) L(5);
+
+const app = require("connect")();
+
+app.use((req, res, next) =>
+{
+    L.V( req.method + " " + req.url );
+    next();
+});
+
+
+app.use( require( "rpc" )( "/server/", HERE + "/server/", { cors: true, dev: true } ) );
 
 const routes = {
     home: {
