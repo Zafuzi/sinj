@@ -30,3 +30,26 @@
     /* Support for IE. */
     font-feature-settings: 'liga';
 }
+
+#headerNavigation {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+#headerNavigation a {
+    color: var(--neutral);
+    text-decoration: none;
+    font-weight: normal;
+    padding-bottom: 2px;
+}
+
+#headerNavigation a.active {
+    color: var(--darker);
+    border-bottom: 2px dotted var(--darker);
+}

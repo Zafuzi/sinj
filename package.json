@@ -12,8 +12,9 @@
   },
   "scripts": {
     "start": "node index.js localdev -vd",
+    "build": "npm run clean; npm run pack;",
     "clean": "rm -rf dist; rm -rf node_modules; npm i;",
-    "pack": "NODE_ENV=production node pack.js"
+    "pack": "NODE_ENV=production ./pack.sh"
   },
   "devDependencies": {
     "copy-dir": "^1.3.0",
