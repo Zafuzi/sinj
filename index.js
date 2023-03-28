@@ -32,8 +32,8 @@ const routes = {
     about: {
         view: "about.html"
     },
-    nested: {
-        view: "nested_page.html"
+    login: {
+        view: "login.html"
     }
 }
 
