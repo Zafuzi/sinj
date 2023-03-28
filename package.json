@@ -4,10 +4,12 @@
     "connect": "^3.7.0",
     "coughdrop": "^3.2.4",
     "ds": "^1.4.2",
+    "log5": "^2.4.0",
     "path": "^0.12.7",
     "rpc": "^3.3.3",
     "serve-static": "^1.15.0",
     "sleepless": "^5.5.4",
+    "sleepless-users": "^4.2.0",
     "whatwg-url": "^11.0.0"
   },
   "scripts": {

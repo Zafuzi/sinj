@@ -5,16 +5,49 @@ const HERE = path.resolve(__dirname);
 const sleepless = require("sleepless");
 const L = sleepless.L.mkLog("\t")(5);
 
+const users = require("sleepless-users");
+
 const { o2j, } = sleepless;
+
+const db = function()
+{
+    return users.connect("sqlite3", {databaseName: "users.db"});
+}
 
 const methods = {
     ping()
     {
         return "pong";
     },
-    throw()
+    auth_register(input, okay, fail)
     {
-        throw new Error("This is a test error");
+        const {username, email, password} = input;
+        L.D(`register: ${username} ${email} ${password}`);
+        
+        db().register({username, email, password}, (err, user) => {
+            if(err) {
+                L.E(err.message);
+                return fail(err.message);
+            }
+            
+            L.D(`register: ${o2j(user)}`);
+            okay(user);
+        });
+    },
+    auth_login(input, okay, fail)
+    {
+        const {username, password} = input;
+        L.D(`login: ${username} ${password}`);
+        
+        db().login({username, password}, (err, user) => {
+            if(err) {
+                L.E(err.message);
+                return fail(err.message);
+            }
+            
+            L.D(`login: ${o2j(user)}`);
+            okay(user);
+        });
     }
 }
 
@@ -39,7 +72,7 @@ module.exports = function(input, _okay, _fail)
 
 	// try catch makes it simple to detect missing actions
 	try {
-        okay(methods[action](input));
+        return methods[action](input, okay, fail);
 	}
 	catch(e) {
         // This is only going to catch exceptions if every method function (like ping)
