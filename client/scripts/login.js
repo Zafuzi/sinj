@@ -1,6 +1,9 @@
+const authError = sleepless.rplc8("#authError");
+const queryData = getQueryData();
+
 const handleAuth = function(method, element)
 {
-    element.addEventListener("submit", function(event)
+    listen(element, "submit", function(event)
     {
         event.preventDefault();
 
@@ -11,16 +14,18 @@ const handleAuth = function(method, element)
         const action = queryData?.action === "register" ? "register" : "login";
 
         Server.call("auth_" + action, {username, email, password}, function(response) {
-            if(response?.error) {
-                return alert(response.error);
+            console.log(response);
+            if(response?.sid)
+            {
+                Session.set("sid", response.sid, true);
             }
-
-            console.log("success");
+            
+            sleepless.jmp("/");
+        }, function(error) {
+            authError.update({error});
         });
     });
 }
-
-const queryData = getQueryData();
 
 const registerForm = sleepless.rplc8("#registerForm", null, function(element)
 {
