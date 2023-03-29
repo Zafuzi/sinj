@@ -122,6 +122,13 @@ const Server = {
             }
         }
         
+        // inject sid if available
+        const sid = Session.get("sid");
+        if(sid)
+        {
+            params.sid = sid;
+        }
+        
         sleepless.rpc("/server/", params, okay, fail);
     }
 }
