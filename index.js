@@ -34,6 +34,9 @@ const routes = {
     },
     login: {
         view: "login.html"
+    },
+    logout: {
+        view: "logout.html"
     }
 }
 
