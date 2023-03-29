@@ -22,6 +22,7 @@ const handleAuth = function(method, element)
             
             sleepless.jmp("/");
         }, function(error) {
+            console.error(error);
             authError.update({error});
         });
     });

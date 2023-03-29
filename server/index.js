@@ -12,7 +12,7 @@ const { o2j, } = sleepless;
 const Database = {
     call(method, input, okay, fail)
     {
-        users.connect("sqlite3", {databaseName: "users.db"}, function(db)
+        users.connect("sqlite3", {}, function(db)
         {
             L.D("database: "+o2j(db));
             if(!db[method]) {
@@ -20,7 +20,11 @@ const Database = {
             }
             
             db[method](input, okay, fail);
-        }, fail);
+        }, function(error)
+        {
+            L.E("Could not connect to database: " + sleepless.o2j(error))
+            fail("Could not connect to database.");
+        });
     },
 }
 
