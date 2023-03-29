@@ -9,7 +9,7 @@
     "rpc": "^3.3.3",
     "serve-static": "^1.15.0",
     "sleepless": "^5.5.4",
-    "sleepless-users": "^4.2.0",
+    "sleepless-users": "^4.3.0",
     "whatwg-url": "^11.0.0"
   },
   "scripts": {
