@@ -1,4 +1,4 @@
-const APP_VERSION = "0.0.8 - Gorgon Chanjour";
+const APP_VERSION = "0.1.0 - Marcher Trinket";
 
 const listen = function(selector, eventType, onEventFunction)
 {
