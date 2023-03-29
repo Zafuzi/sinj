@@ -86,7 +86,7 @@ const getQueryData = function()
     return o;
 };
 
-window.addEventListener("load", function()
+listen("window", "load", function()
 {
 	const parsedURL = new URL(window.location);
 	const route = parsedURL.pathname.split("/")[1];
@@ -125,3 +125,90 @@ const Server = {
         sleepless.rpc("/server/", params, okay, fail);
     }
 }
+
+const Session = {
+    data: {},
+    get(key, loadFromLocalStorage)
+    {
+        if(!key)
+        {
+            return null;
+        }
+        
+        let val = null;
+        
+        if(loadFromLocalStorage)
+        {
+            val = localStorage.getItem(key);
+            Session.set(key, val);
+        }
+        
+        return Session.data[key] || val; 
+    },
+    set(key, value, saveToLocalStorage)
+    {
+        if(!key || !value)
+        {
+            return false;
+        }
+
+        Session.data[key] = value;
+
+        if(saveToLocalStorage)
+        {
+            localStorage.setItem(key, value);
+        }
+    },
+    unset(key, removeFromLocalStorage)
+    {
+        if(!key)
+        {
+            return false;
+        }
+
+        delete Session.data[key];
+
+        if(removeFromLocalStorage)
+        {
+            localStorage.removeItem(key);
+        }
+    },
+    all()
+    {
+        return Session.data;
+    },
+    clear(clearLocalStorage)
+    {
+        Session.data = {};
+
+        if(clearLocalStorage)
+        {
+            localStorage.clear();
+        }
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function()
+{
+    // load up localstorage into Session
+    for(let i = 0; i < localStorage.length; i++)
+    {
+        let key = localStorage.key(i);
+        Session.set(key, localStorage.getItem(key));
+    }
+    
+    // set up login / logout links in the header based on SID in localstorage
+    const logoutLink = sleepless.rplc8("#logoutLink");
+    const loginLink = sleepless.rplc8("#loginLink");
+
+    if(Session.get("sid"))
+    {
+        logoutLink.update({});
+        loginLink.clear();
+    }
+    else
+    {
+        loginLink.update({});
+        logoutLink.clear();
+    }
+});
