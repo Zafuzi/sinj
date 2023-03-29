@@ -1,3 +1,8 @@
 h1 {
-	color: blue;
+    border: 2px solid var(--neutral);
+    min-width: 250px;
+    padding: 24px;
+    background: var(--neutral-dark);
+    color: var(--lighter);
+    text-align: center;
 }
