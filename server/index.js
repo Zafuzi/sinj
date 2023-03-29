@@ -9,9 +9,19 @@ const users = require("sleepless-users");
 
 const { o2j, } = sleepless;
 
-const db = function()
-{
-    return users.connect("sqlite3", {databaseName: "users.db"});
+const Database = {
+    call(method, input, okay, fail)
+    {
+        users.connect("sqlite3", {databaseName: "users.db"}, function(db)
+        {
+            L.D("database: "+o2j(db));
+            if(!db[method]) {
+                return fail("Method not found: "+method);
+            }
+            
+            db[method](input, okay, fail);
+        }, fail);
+    },
 }
 
 const methods = {
@@ -24,30 +34,21 @@ const methods = {
         const {username, email, password} = input;
         L.D(`register: ${username} ${email} ${password}`);
         
-        db().register({username, email, password}, (err, user) => {
-            if(err) {
-                L.E(err.message);
-                return fail(err.message);
-            }
-            
-            L.D(`register: ${o2j(user)}`);
-            okay(user);
-        });
+        Database.call("register", {username, email, password}, function()
+        {
+            L.D("register: success");
+            okay();
+        }, fail);
     },
     auth_login(input, okay, fail)
     {
         const {username, password} = input;
         L.D(`login: ${username} ${password}`);
         
-        db().login({username, password}, (err, user) => {
-            if(err) {
-                L.E(err.message);
-                return fail(err.message);
-            }
-            
-            L.D(`login: ${o2j(user)}`);
-            okay(user);
-        });
+        Database.call("authenticate", {username, password}, function(sid)
+        {
+            okay({sid});
+        }, fail);
     }
 }
 
