@@ -14,15 +14,16 @@ const express = require("express");
 const path = require("path");
 const routes = require("./routes");
 
-const L = require("sleepless").log5.mkLog("KetoJS ")(3);
+const logLevel = process.env.LOG_LEVEL || 3;
+const L = require("sleepless").log5.mkLog("KetoJS ")(logLevel);
 
 const jsonFile = require("jsonfile");
-const config = jsonFile.readFileSync(path.resolve(__dirname, "settings.json"));
+// const config = jsonFile.readFileSync(path.resolve(__dirname, "settings.json"));
 
-if(config?.logLevel)
+// if(config?.logLevel)
 {
-    L(config.logLevel);
-}
+    // L(config.logLevel);
+// }
 
 const app = express();
 
