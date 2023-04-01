@@ -7,6 +7,7 @@ const isProd = ENV === "production";
 const isDev = ENV === "development";
 
 const clientPrefix = isProd ? "dist/client" : "client";
+const publicPrefix = isProd ? "dist/public" : "public";
 const serverPrefix = isProd ? "dist/server" : "server";
 
 const express = require("express");
@@ -33,6 +34,7 @@ app.use((req, res, next) =>
 });
 
 app.use(express.static(path.resolve(__dirname, clientPrefix)));
+app.use(express.static(path.resolve(__dirname, publicPrefix)));
 app.set("views", path.resolve(__dirname, clientPrefix));
 app.set("view engine", "ejs");
 

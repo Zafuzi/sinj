@@ -25,7 +25,7 @@ if(!config)
 fse.ensureDirSync(HERE + "/dist", {});
 fse.emptydirSync(HERE + "/dist");
 
-if(fse.pathExistsSync(HERE + "/dist/public"))
+if(fse.pathExistsSync(HERE + "/public"))
 {
     fse.copySync(HERE + "/public", HERE + "/dist/public", {overwrite: true, dereference: true});
 }
