@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>KetoJS</title>
+        <link rel="stylesheet" href="coughdrop.css">
+        <link rel="stylesheet" href="layout.css">
+    </head>
+    <body>
+        <script src="sleepless.js"></script> 
+        <script src="layout.js"></script>
+        
+        <%
+            let isActiveRoute = (routeName) => {
+                return route.name === routeName ? "active" : "";
+            }
+        %>
+
+        <header class="container-1100 container-centered flex flex-row-nowrap align-center justify-space-between">
+            <h1>KetoJS - <%= route.name%></h1>
+            <nav class="flex flex-row-nowrap align-center gap-8">
+                <a href="/" class="<%= isActiveRoute('home') %>">Home</a>
+                <a href="/about" class="<%= isActiveRoute('about') %>">About</a>
+                <a href="/login" class="<%= isActiveRoute('login') %>">Login</a>
+            </nav>
+        </header>
+        <main>
+            <%- include(route.view) -%>
+        </main>
+    </body>
+</html>

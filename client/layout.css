@@ -1,0 +1,22 @@
+* {box-sizing: border-box;}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    
+    font-size: 12pt;
+    font-family: 'Roboto', sans-serif;
+    
+    color: var(--darker);
+    background: var(--light);
+}
+
+nav a {
+    color: var(--neutral);
+    padding: 8px;
+    text-decoration: none;
+}
+nav a.active {
+    color: var(--dark);
+    border-bottom: 2px dotted var(--dark);
+}

@@ -1,28 +1,29 @@
 {
-  "version": "0.0.1",
+  "name": "ketojs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon index.js",
+    "clean": "rm -rf dist",
+    "build": "npm i; NODE_ENV=production node build.js",
+    "build:clean": "rm -rf node_modules; npm run clean && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "connect": "^3.7.0",
     "coughdrop": "^3.2.4",
-    "ds": "^1.4.2",
-    "log5": "^2.4.0",
+    "db": "^4.0.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
     "path": "^0.12.7",
-    "rpc": "^3.3.3",
     "serve-static": "^1.15.0",
     "sleepless": "^5.5.4",
-    "sleepless-users": "^4.3.0",
-    "whatwg-url": "^11.0.0"
-  },
-  "scripts": {
-    "start": "node index.js",
-    "start_dev": "node index.js localdev -vd",
-    "build": "npm run clean; npm run pack;",
-    "clean": "rm -rf dist; rm -rf node_modules; npm i;",
-    "pack": "NODE_ENV=production ./pack.sh"
+    "uglify-js-minify-css-allfiles": "^1.2.9"
   },
   "devDependencies": {
-    "copy-dir": "^1.3.0",
-    "rsync": "^0.6.1",
-    "uglify-js": "^3.17.4",
-    "uglify-js-minify-css-allfiles": "^1.2.9"
+    "fs-extra": "^11.1.1",
+    "uglify-js": "^3.17.4"
   }
 }

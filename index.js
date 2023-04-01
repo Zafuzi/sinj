@@ -1,147 +1,81 @@
 delete require.cache[module.filename];	// always reload
 
+const PORT = process.env.PORT || 3000;
+const ENV = process.env.NODE_ENV || "production";
+
+const isProd = ENV === "production";
+const isDev = ENV === "development";
+
+const clientPrefix = isProd ? "dist/client" : "client";
+const serverPrefix = isProd ? "dist/server" : "server";
+
+const express = require("express");
 const path = require("path");
-//const rpc = require("rpc");
-//const serve = require("serve-static");
-const fs = require("fs");
-const sleepless = require("sleepless");
-const url = require("whatwg-url");
-const HERE  = path.dirname(module.filename);
-const L = sleepless.log5.mkLog("- ")(3);
+const routes = require("./routes");
 
-if(process.argv.indexOf("-vv") !== -1) L(4);
-if(process.argv.indexOf("-vd") !== -1) L(5);
+const app = express();
 
-const app = require("connect")();
+app.use(express.static(path.resolve(__dirname, clientPrefix)));
+app.set("views", path.resolve(__dirname, clientPrefix));
+app.set("view engine", "ejs");
 
-
-// simple logger
-app.use((req, res, next) =>
+app.get("*", async(req, res) =>
 {
-    L.V( req.method + " " + req.url );
-    next();
-});
+    const url = req.originalUrl;
 
-
-app.use( require( "rpc" )( "/server/", HERE + "/server/", { cors: true, dev: true } ) );
-
-const routes = {
-    home: {
-        view: "home.html"
-    },
-    about: {
-        view: "about.html"
-    },
-    login: {
-        view: "login.html"
-    },
-    logout: {
-        view: "logout.html"
+    // get route with path
+    const route = routes.find(route => route.path === url);
+    
+    let routeData = {name: url};
+    
+    if(route?.onBeforeAction)
+    {
+        routeData = await route?.onBeforeAction() || {};
     }
-}
 
-// Some of these should maybe be upstream of the rpc middleware XXX
-app.use((req, res, next) =>
-{
-	res.setHeader("Access-Control-Allow-Origin", "*");
-	res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-	res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
-	res.setHeader("Content-Security-Policy", "default-src 'self'");
-	res.setHeader("X-Content-Security-Policy", "default-src 'self'");
-	res.setHeader("X-WebKit-CSP", "default-src 'self'");
-	next();
+    
+    res.render("layout", {
+        url,
+        route: route ? route : {view: "pages/404.ejs"},
+        ...routeData
+    });
 });
 
-app.use(async function(req, res, next)
+app.post("*", (req, res) =>
 {
-	const applyLayout = async function(routePath)
-	{
-		fs.readFile(path.resolve(HERE + "/client/index.html"), function(error, layoutFile)
-		{
-			if(error)
-			{
-				L.E(error);
-				next();
-				return false;
-			}
-			
-			if(!layoutFile)
-			{
-				L.E(error);
-				next();
-				return false;
-			}
-			
-			fs.readFile(path.resolve(HERE + "/client/views/" + routePath), function(templateError, templateFile)
-			{
-				if(templateError)
-				{
-					L.E(templateError);
-					next();
-					return false;
-				}
-				
-				if(!templateFile)
-				{
-					L.E("missing templateFile");
-					next();
-					return false;
-				}
-				
-				let html = layoutFile?.toString().replace("__yield__", templateFile.toString());
-				if(html)
-				{
-					// inject html
-					res.write(html);
-					res.end();
-					return true;
-				}
-				else
-				{
-					next();
-					return false;
-				}
-			});
-		});
-	}
-
-	const parsedURL = url.parseURL(req.url, {
-		baseURL: req.url
-	});
-
-	let route = parsedURL.path[0];
-	if(route === "")
-	{
-		route = "home";
-	}
-
-	const searchParams = new URLSearchParams(parsedURL.query);
-	//console.log(parsedURL.path, req.url)
-	
-	if(routes[route])
-	{
-		L.D(routes[route]);
-		await applyLayout(routes[route].view);
-		return true;
-	}
-	
-	next();
-	return false;
+    const methods = require(path.resolve(serverPrefix, "/methods"));
+    const url = req.originalUrl;
+    const {action} = req.body;
+    
+    const _okay = function( data ) {
+        return res.json({error: null, result: data});
+    }
+    
+    const _fail = function( error ) {
+        return res.json({error: error, result: null});
+    }
+    
+    if(!methods[action])
+    {
+        return _fail("Method not found: " + action);
+    }
+    
+    methods[action](req.body, _okay, _fail);
 });
 
-
-if(process.argv.indexOf("localdev") !== -1)
+if(isDev)
 {
-	app.use(require("serve-static")(HERE + "/client"));
-	const PORT = 12345;
-	const server = app.listen(PORT, function()
-	{
-		console.log(`App listening at: http://localhost:${server.address().port}`);
-	});
+    app.listen(PORT, () =>
+    {
+        console.log(`Server running at http://localhost:${PORT}/`);
+    });
 }
-else
+
+if(isProd)
 {
-	app.use(require("serve-static")(HERE + "/dist"));
+    console.log("Starting in production mode");
+    console.log(clientPrefix);
+    console.log(serverPrefix);
 }
 
 module.exports = app;
