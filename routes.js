@@ -1,7 +1,7 @@
 const routes = [
     {
-        path: '/',
-        name: 'home',
+        path: "/",
+        name: "home",
         view: "pages/home.ejs",
         async onBeforeAction()
         {
@@ -11,9 +11,19 @@ const routes = [
         }
     },
     {
-        path: '/about',
-        name: 'about',
+        path: "/about",
+        name: "about",
         view: "pages/about.ejs"
+    },
+    {
+        path: "/login",
+        name: "login",
+        view: "pages/login.ejs"
+    },
+    {
+        path: "/register",
+        name: "register",
+        view: "pages/register.ejs"
     }
 ]
 

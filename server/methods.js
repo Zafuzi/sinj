@@ -1,6 +1,12 @@
 module.exports = {
-    ping()
+    ping(input, okay)
     {
-        return "pong";
+        okay("pong");
+    },
+    login(input, okay, fail)
+    {
+        const {email, password} = input;
+        
+        okay(input);
     }
 }
