@@ -15,9 +15,9 @@ const MinifyAll = require("uglify-js-minify-css-allfiles");
 const HERE = path.dirname(module.filename);
 const L = require("sleepless").log5.mkLog("mb/build ")(5);
 
-const config = require(HERE + "/settings.json");
+// const config = require(HERE + "/settings.json");
 
-if(!config)
+// if(!config)
 {
     // throw new Error("Failed to read settings.json");
 }
