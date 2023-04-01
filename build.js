@@ -19,7 +19,7 @@ const config = require(HERE + "/settings.json");
 
 if(!config)
 {
-    throw new Error("Failed to read settings.json");
+    // throw new Error("Failed to read settings.json");
 }
 
 fse.ensureDirSync(HERE + "/dist", {});
