@@ -18,6 +18,7 @@ const logLevel = process.env.LOG_LEVEL || 3;
 const L = require("sleepless").log5.mkLog("KetoJS ")(logLevel);
 
 const app = express();
+const bodyParser = require("body-parser").json();
 
 // simple logger
 app.use((req, res, next) =>
@@ -53,11 +54,14 @@ app.get("*", async(req, res) =>
     });
 });
 
-app.post("*", (req, res) =>
+app.post("*", bodyParser, (req, res) =>
 {
-    const methods = require(path.resolve(serverPrefix, "/methods"));
+    const methods = require(path.resolve(serverPrefix, "methods"));
     const url = req.originalUrl;
-    const {action} = req.body;
+    const body = req.body;
+    const action = body?.action;
+    
+    L.D(`C >>>> S | method: ${req.method} | action: ${action}`);
     
     const _okay = function( data ) {
         return res.json({error: null, result: data});
@@ -67,6 +71,11 @@ app.post("*", (req, res) =>
         return res.json({error: error, result: null});
     }
     
+    if(!action)
+    {
+        _fail("No action specified");
+    }
+
     if(!methods[action])
     {
         return _fail("Method not found: " + action);
