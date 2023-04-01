@@ -141,12 +141,7 @@ if(process.argv.indexOf("localdev") !== -1)
 }
 else
 {
-    app.use(require("serve-static")(HERE + "/client"));
-    const PORT = 80;
-    const server = app.listen(PORT, function()
-    {
-        console.log(`App listening at: http://localhost:${server.address().port}`);
-    });
+	app.use(require("serve-static")(HERE + "/dist"));
 }
 
 module.exports = app;
