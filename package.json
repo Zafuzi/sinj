@@ -13,7 +13,8 @@
     "whatwg-url": "^11.0.0"
   },
   "scripts": {
-    "start": "node index.js localdev -vd",
+    "start": "node index.js",
+    "start_dev": "node index.js localdev -vd",
     "build": "npm run clean; npm run pack;",
     "clean": "rm -rf dist; rm -rf node_modules; npm i;",
     "pack": "NODE_ENV=production ./pack.sh"
