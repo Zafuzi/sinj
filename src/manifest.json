@@ -1,6 +1,6 @@
 {
-  "name": "my-project",
-  "short_name": "my-project",
+  "name": "KetoJS",
+  "short_name": "KetoJs",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
