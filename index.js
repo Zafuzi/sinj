@@ -73,7 +73,7 @@ app.get("*", async(req, res) =>
 
 app.post("*", bodyParser, (req, res) =>
 {
-    const methods = require(path.resolve(serverPrefix, "methods"));
+    const methods = require(path.resolve(__dirname, serverPrefix, "methods"));
     const body = req.body;
     const action = body?.action;
     
