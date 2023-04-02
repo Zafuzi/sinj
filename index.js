@@ -44,7 +44,7 @@ app.get("*", async(req, res) =>
     const queryData = new URLSearchParams(url.parse(req.url).query);
     const renderData = {
         layout: "layout",
-        helpers: require(path.resolve(clientPrefix, "helpers")),
+        helpers: require(path.resolve(__dirname, clientPrefix, "helpers")),
         baseRoute
     };
     
