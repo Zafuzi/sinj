@@ -10,7 +10,7 @@ const express = require("express");
 
 const settings = require("./settings.json");
 
-const L = require("sleepless").log5.mkLog("KetoJS ")(settings?.logLevel || 3);
+const L = require("sleepless").log5.mkLog("sinj ")(settings?.logLevel || 3);
 
 const app = express();
 const bodyParser = require("body-parser").json();

@@ -1,6 +1,6 @@
 {
-  "name": "KetoJS",
-  "short_name": "KetoJs",
+  "name": "sinj",
+  "short_name": "sinj",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

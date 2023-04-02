@@ -1,4 +1,4 @@
-# KetoJS
+# Sinj
 
 SleeplessInc Discord: https://discord.gg/ywMm7d9w3Z
 
