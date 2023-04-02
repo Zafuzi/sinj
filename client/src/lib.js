@@ -46,6 +46,9 @@ export const Server = {
     }
 }
 
+export const isClient = typeof window !== "undefined";
+export const isServer = !isClient;
+
 class SignalSession extends Signal {
     LOCAL_STORAGE_KEY = "sinj_";
     
@@ -55,7 +58,7 @@ class SignalSession extends Signal {
     }
     set(key, value, persist = false)
     {
-        if(persist)
+        if(persist && isClient)
         {
             localStorage.setItem(this.LOCAL_STORAGE_KEY + key, JSON.stringify(value));
         }
@@ -64,7 +67,7 @@ class SignalSession extends Signal {
     }
     get(key, loadFromLocalStorage = false)
     {
-        if(loadFromLocalStorage)
+        if(loadFromLocalStorage && isClient)
         {
             const valueFromLocalStorage = localStorage.getItem(this.LOCAL_STORAGE_KEY + key);
             if(valueFromLocalStorage)
@@ -77,7 +80,7 @@ class SignalSession extends Signal {
     }
     unset(key, removeFromLocalStorage = false)
     {
-        if(removeFromLocalStorage)
+        if(removeFromLocalStorage && isClient)
         {
             localStorage.removeItem(this.LOCAL_STORAGE_KEY + key);
         }
