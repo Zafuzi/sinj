@@ -34,11 +34,17 @@ export const Server = {
 }
 
 export const LOCAL_STORAGE_KEY = "ketojs_";
-const sidFromLocalStorage = localStorage.getItem(LOCAL_STORAGE_KEY + "sid");
 
-export const sid = signal(JSON.parse(sidFromLocalStorage));
+export const sid = signal(null);
+
 export const isLoggedIn = () => {
     return !!sid.value;
+}
+
+if(typeof window !== "undefined")
+{
+    const sidFromLocalStorage = localStorage.getItem(LOCAL_STORAGE_KEY + "sid");
+    sid.value = sidFromLocalStorage ? JSON.parse(sidFromLocalStorage) : null;
 }
 
 export const logout = async () => {
