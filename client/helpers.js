@@ -6,5 +6,9 @@ module.exports = {
     o2j(obj)
     {
         return JSON.stringify(obj || {});
+    },
+    isActiveRoute(route, currentRoute)
+    {
+        return route === currentRoute ? "active" : "";
     }
 }

@@ -18,9 +18,9 @@
                 KetoJS - {{route.name}} 
             </h1>
             <nav class="flex flex-row-nowrap align-center gap-8">
-                <a href="/" class="">Home</a>
-                <a href="/about" class="">About</a>
-                <a href="/login" class=">">Login</a>
+                <a href="/" class="{{isActiveRoute 'home' route.name}}">Home</a>
+                <a href="/about" class="{{isActiveRoute 'about' route.name}}">About</a>
+                <a href="/login" class="{{isActiveRoute 'login' route.name}}">Login</a>
             </nav>
         </header>
         <main>
