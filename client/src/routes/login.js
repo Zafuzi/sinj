@@ -1,4 +1,4 @@
-import {LOCAL_STORAGE_KEY, Server, sid} from "../lib";
+import {Server, Session} from "../lib";
 import { useState } from 'preact/hooks'
 import style from './login.less';
 import {Router} from "preact-router";
@@ -27,9 +27,8 @@ export default function()
             return;
         }
         
-        sid.value = result;
-        localStorage.setItem(LOCAL_STORAGE_KEY + "sid", JSON.stringify(result));
-        Router.route("/");
+        Session.set("sid", result, true);
+        window.location.href = "/";
     }
     
     const toggleRegister = (event) => {

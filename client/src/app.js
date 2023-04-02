@@ -5,6 +5,7 @@ import Header from './components/header/header.js';
 import Home from './routes/home.js';
 import About from './routes/about.js';
 import Login from './routes/login.js';
+import {Session} from "./lib";
 
 const App = () => (
 	<div id="app">

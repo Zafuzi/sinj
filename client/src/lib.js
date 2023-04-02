@@ -1,5 +1,4 @@
-import {Router} from "preact-router";
-import { signal } from "@preact/signals";
+import {Signal} from "@preact/signals";
 
 export const Server = {
     async get(url)
@@ -25,7 +24,7 @@ export const Server = {
     {
         data = data || {};
         data.action = action;
-        data.sid = sid.value; 
+        data.sid = Session.get("sid", true);
 
         try {
             const response = await fetch("/", {
@@ -47,23 +46,56 @@ export const Server = {
     }
 }
 
-export const LOCAL_STORAGE_KEY = "ketojs_";
-
-export const sid = signal(null);
-
-export const isLoggedIn = () => {
-    return !!sid.value;
+class SignalSession extends Signal {
+    LOCAL_STORAGE_KEY = "sinj_";
+    
+    constructor()
+    {
+        super();
+    }
+    set(key, value, persist = false)
+    {
+        if(persist)
+        {
+            localStorage.setItem(this.LOCAL_STORAGE_KEY + key, JSON.stringify(value));
+        }
+        
+        this[key] = value;
+    }
+    get(key, loadFromLocalStorage = false)
+    {
+        if(loadFromLocalStorage)
+        {
+            const valueFromLocalStorage = localStorage.getItem(this.LOCAL_STORAGE_KEY + key);
+            if(valueFromLocalStorage)
+            {
+                this[key] = JSON.parse(valueFromLocalStorage);
+            }
+        }
+        
+        return this[key];
+    }
+    unset(key, removeFromLocalStorage = false)
+    {
+        if(removeFromLocalStorage)
+        {
+            localStorage.removeItem(this.LOCAL_STORAGE_KEY + key);
+        }
+        
+        delete this[key];
+    }
 }
 
-if(typeof window !== "undefined")
-{
-    const sidFromLocalStorage = localStorage.getItem(LOCAL_STORAGE_KEY + "sid");
-    sid.value = sidFromLocalStorage ? JSON.parse(sidFromLocalStorage) : null;
+export const Session = new SignalSession();
+
+export const isLoggedIn = () => {
+    const sid = Session.get("sid", true);
+    return !!sid;
 }
 
 export const logout = async () => {
-    sid.value = null;
+    Session.unset("sid", true);
     localStorage.clear();
-    console.log("Logging out");
-    // Router.route("/login");
+    
+    window.location.href = "/login";
 }
