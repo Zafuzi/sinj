@@ -1,6 +1,9 @@
 node_modules
 settings.json
-/build
-/*.log
+build
+*.log
 size-plugin.json
 *.db
+*.tar
+*.gz
+*.env
