@@ -1,11 +1,12 @@
-import {Server} from "../index";
+import {LOCAL_STORAGE_KEY, Server, sid} from "../lib";
 import { useState } from 'preact/hooks'
-import {Link} from "preact-router/match";
+import style from './login.less';
+import {Router} from "preact-router";
 
 export default function()
 {
     const [isRegister, setIsRegister] = useState(false); 
-    const [loginError, setLoginError] = useState("");
+    const [loginError, setLoginError] = useState(null);
     
     const handleOnSubmit = async function(event)
     {
@@ -13,10 +14,11 @@ export default function()
     
         const formData = new FormData(event.target);
     
+        const username = formData.get("username");
         const email = formData.get("email");
         const password = formData.get("password");
-    
-        const {error, result} = await Server.post(isRegister ? "register" : "login", {email, password});
+        
+        const {error, result} = await Server.post(isRegister ? "register" : "login", {username, email, password});
     
         if(error)
         {
@@ -24,13 +26,16 @@ export default function()
             console.error(error);
             return;
         }
-    
-        console.log(result);
+        
+        sid.value = result;
+        localStorage.setItem(LOCAL_STORAGE_KEY + "sid", JSON.stringify(result));
+        Router.route("/");
     }
     
     const toggleRegister = (event) => {
         event.preventDefault();
         setIsRegister(!isRegister);
+        setLoginError(null);
     }
 
     return (
@@ -39,11 +44,12 @@ export default function()
                 
                 <div className={"flex flex-row-nowrap align-center justify-space-between"}>
                     <h1>{isRegister ? "Register" : "Login"}</h1>
-                    <span className="assertive">{loginError}</span>
+                    {loginError && <span className={style.loginError}>{loginError}</span>}
                 </div>
 
-                
-                <input type="email" name="email" placeholder="Email" required/>
+
+                <input type="text" name="username" placeholder="Username" required/>
+                {isRegister && <input type="email" name="email" placeholder="Email" required/>}
                 <input type="password" name="password" placeholder="Password" required/>
 
                 {isRegister && <p>Already have an account? <a href="#" onClick={toggleRegister}>Login</a></p>}
