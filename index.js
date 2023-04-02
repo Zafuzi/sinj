@@ -13,9 +13,12 @@ const serverPrefix = isProd ? "dist/server" : "server";
 const express = require("express");
 const path = require("path");
 const routes = require("./routes");
+const url = require('url');
+const expressHandlebars = require("express-handlebars");
 
-const logLevel = process.env.LOG_LEVEL || 3;
-const L = require("sleepless").log5.mkLog("KetoJS ")(logLevel);
+const settings = require("./settings");
+
+const L = require("sleepless").log5.mkLog("KetoJS ")(settings?.logLevel || 3);
 
 const app = express();
 const bodyParser = require("body-parser").json();
@@ -23,45 +26,58 @@ const bodyParser = require("body-parser").json();
 // simple logger
 app.use((req, res, next) =>
 {
-    L.D(`C >>>> S | method: ${req.method} url: ${req.url}`);
+    L.V(`C >>>> S | method: ${req.method} url: ${req.url}`);
     next();
 });
 
 app.use(express.static(path.resolve(__dirname, clientPrefix)));
 app.use(express.static(path.resolve(__dirname, publicPrefix)));
+
+app.engine("handlebars", expressHandlebars.engine());
 app.set("views", path.resolve(__dirname, clientPrefix));
-app.set("view engine", "ejs");
+app.set("view engine", "handlebars");
 
 app.get("*", async(req, res) =>
 {
-    const url = req.originalUrl;
-
-    // get route with path
-    const route = routes.find(route => route.path === url);
+    const baseRoute = req.url.split("?")[0];
+    const route = routes.find(r => r.path === baseRoute);
+    const queryData = new URLSearchParams(url.parse(req.url).query);
+    const renderData = {
+        layout: "layout",
+        helpers: require(path.resolve(clientPrefix, "helpers")),
+        baseRoute
+    };
     
-    let routeData = {name: url};
-    
-    if(route?.onBeforeAction)
+    if(!route)
     {
-        routeData = await route?.onBeforeAction() || {};
+        return res.render("pages/404", renderData);
     }
-
     
-    res.render("layout", {
-        url,
-        route: route ? route : {view: "pages/404.ejs"},
-        ...routeData
-    });
+    if(route.layout)
+    {
+        renderData.layout = route.layout;
+    }
+    
+    if(route.onBeforeAction instanceof Function)
+    {
+        renderData.data = await route.onBeforeAction(queryData);
+    }
+    
+    renderData.route = {
+        path: route.path,
+        name: route.name
+    }
+    
+    res.render(route.view, renderData);
 });
 
 app.post("*", bodyParser, (req, res) =>
 {
     const methods = require(path.resolve(serverPrefix, "methods"));
-    const url = req.originalUrl;
     const body = req.body;
     const action = body?.action;
     
-    L.D(`C >>>> S | method: ${req.method} | action: ${action}`);
+    L.V(`C >>>> S | method: ${req.method} | action: ${action}`);
     
     const _okay = function( data ) {
         return res.json({error: null, result: data});

@@ -2,7 +2,7 @@ const routes = [
     {
         path: "/",
         name: "home",
-        view: "pages/home.ejs",
+        view: "pages/home",
         async onBeforeAction()
         {
             return {
@@ -13,18 +13,22 @@ const routes = [
     {
         path: "/about",
         name: "about",
-        view: "pages/about.ejs"
+        view: "pages/about"
     },
     {
         path: "/login",
         name: "login",
-        view: "pages/login.ejs"
+        view: "pages/login",
+        async onBeforeAction(queryData)
+        {
+            const action = queryData.get("action") || "login";
+            if(["register", "login"].indexOf(action) === -1)
+            {
+                return {action: "login"};
+            }
+            return {action}
+        }
     },
-    {
-        path: "/register",
-        name: "register",
-        view: "pages/register.ejs"
-    }
 ]
 
 module.exports = routes;

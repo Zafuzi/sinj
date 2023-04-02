@@ -1,0 +1,10 @@
+{
+  "logLevel": 3,
+  "database": {
+    "host": "localhost",
+    "user": "root",
+    "password": "password",
+    "database": "pool",
+    "port": 3306
+  }
+}

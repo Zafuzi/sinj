@@ -7,6 +7,12 @@ module.exports = {
     {
         const {email, password} = input;
         
-        okay(input);
+        fail("Not implemented");
+    },
+    register(input, okay, fail)
+    {
+        const {email, password} = input;
+        
+        fail("Not implemented");
     }
 }

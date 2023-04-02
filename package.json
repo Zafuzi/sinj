@@ -18,6 +18,8 @@
     "db": "^4.0.1",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
+    "express-handlebars": "^7.0.4",
+    "handlebars": "^4.7.7",
     "path": "^0.12.7",
     "serve-static": "^1.15.0",
     "sleepless": "^5.5.4",
