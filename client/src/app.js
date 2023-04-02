@@ -1,10 +1,10 @@
 import { h } from 'preact';
 import { Router } from 'preact-router';
 
-import Header from './header/header.js';
-import Home from '../routes/home.js';
-import About from '../routes/about.js';
-import Login from '../routes/login.js';
+import Header from './components/header/header.js';
+import Home from './routes/home.js';
+import About from './routes/about.js';
+import Login from './routes/login.js';
 
 const App = () => (
 	<div id="app">

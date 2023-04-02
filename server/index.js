@@ -8,7 +8,7 @@ const isDev = ENV === "development";
 const path = require("path");
 const express = require("express");
 
-const settings = require("./settings");
+const settings = require("./settings.json");
 
 const L = require("sleepless").log5.mkLog("KetoJS ")(settings?.logLevel || 3);
 
@@ -26,7 +26,7 @@ app.use(express.static(path.resolve(__dirname, "build")));
 
 app.post("*", bodyParser, (req, res) =>
 {
-    const methods = require(path.resolve(__dirname, "server", "methods"));
+    const methods = require(path.resolve(__dirname, "methods"));
     const body = req.body;
     const action = body?.action;
 
@@ -55,9 +55,15 @@ app.post("*", bodyParser, (req, res) =>
 
 app.get("*", (req, res) =>
 {
-    res.sendFile(path.resolve(__dirname, "build", "index.html"));
+    if(isDev)
+    {
+        res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+    }
+    else
+    {
+        res.sendFile(path.resolve(__dirname, "build", "index.html"));
+    }
 });
-
 
 if(isDev)
 {
