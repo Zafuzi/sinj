@@ -34,5 +34,22 @@ module.exports = {
                 });
             }, fail);
         }, fail);
+    },
+    getSession(input, okay, fail)
+    {
+        const {sid} = input;
+        if(!sid)
+        {
+            fail("No session ID provided.");
+            return;
+        }
+        
+        users.connect("sqlite3", {}, (db) =>
+        {
+            db.get_session(sid, (result) =>
+            {
+                okay(result);
+            }, fail);
+        }, fail);
     }
 };

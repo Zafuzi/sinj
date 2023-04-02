@@ -99,3 +99,21 @@ export const logout = async () => {
     
     window.location.href = "/login";
 }
+
+export const getUserData = async() => {
+    // always get user session if logged in
+    const {error, result} = await Server.post("getSession");
+
+    if(error)
+    {
+        console.error(error);
+    }
+
+    if(result)
+    {
+        // Session.set("user", result);
+        return result;
+    }
+    
+    return null;
+}
