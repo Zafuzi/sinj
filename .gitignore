@@ -3,3 +3,4 @@ settings.json
 /build
 /*.log
 size-plugin.json
+*.db
