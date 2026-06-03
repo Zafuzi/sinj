@@ -1,0 +1,19 @@
+{
+  "name": "sinj",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "npx nodemon app.js",
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.2",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-handlebars": "^9.0.1",
+    "resend": "^6.12.4",
+    "sanitize": "^2.1.2",
+    "strip": "^3.0.0"
+  }
+}

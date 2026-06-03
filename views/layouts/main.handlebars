@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<title>SINJ</title>
+
+	<meta name="description"
+		content="Software Engineer specializing in interactive, user-facing systems. TypeScript, Node.js, real-time systems." />
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+	<link rel="stylesheet" href="/coughdrop/dist/coughdrop.css" />
+	<link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+	<script src="https://code.jquery.com/jquery-4.0.0.slim.min.js"
+		integrity="sha256-8DGpv13HIm+5iDNWw1XqxgFB4mj+yOKFNb+tHBZOowc=" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
+	<script src="/coughdrop/dist/theme-switcher.js"></script>
+
+	<script type="module" src="/main.js"></script>
+
+	<header class="flex flow-column gap-2">
+		<h1>SINJ</h1>
+		{{> nav}}
+	</header>
+
+	<main>
+		{{{body}}}
+	</main>
+</body>
+
+</html>
